@@ -6,10 +6,38 @@
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
         {% block stylesheets %}
+            <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css"/>
+            <link rel="stylesheet" type="text/css" href="{{ asset('slick/slick.css') }}"/>
+
+            <!-- Подключение FONTAWESOME-->
+
+            <link rel="stylesheet" href="{{ asset('font-awesome-4.6.3/css/font-awesome.min.css') }}">
+
+
+            <!-- Подключение галереи -->
+            <link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
+            <link href="{{ asset('css/slider.css') }}" rel='stylesheet' type='text/css'>
+            <!-- Подключение ПОПАП -->
+
+            <link rel="stylesheet" href="{{ asset('css/template.css') }}" type="text/css"/>
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/slider.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/videofon.css') }}" type="text/css"/>
+
             {#{{ encore_entry_link_tags('app') }}#}
         {% endblock %}
 
         {% block javascripts %}
+            <script type="text/javascript" src="{{ asset('js/jquery-3.1.0.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/jquery.imagesGrid.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/crawler_min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/td.js') }}"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+            <script src="{{ asset('js/maskedinput.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('slick/slick.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/popup.js') }}"></script>
+            <!-- Подключение СЛАЙДЕРА -->
+            <script src="{{ asset('js/jquery.glide.js') }}"></script>
             {#{{ encore_entry_script_tags('app') }}#}
         {% endblock %}
     </head>

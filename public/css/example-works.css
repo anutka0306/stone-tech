@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&subset=cyrillic');
+.row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.job{
+    max-width: 1440px;
+    margin: 10px auto;
+}
+.job *{
+    font-family:"Roboto",Arial,Helvetica,sans-serif;
+}
+.job h3{
+    text-transform: none;
+    font-weight: bold;
+}
+.job .top-title {
+    font-size: 0.8rem;
+    color: #838383;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.row--job {
+    margin-bottom: 40px;
+}
+.job_col {
+    word-wrap: break-word;
+    padding-left: .21875%;
+    padding-right: .21875%;
+    width: 49.5625%;
+    background-color: #f6f7fa;
+}
+
+
+.job_pad {
+    padding: 15px;
+    font-size: 18px;
+}
+.job .description{
+    line-height: 30px;
+}
+.job_price{
+    font-size: 1.3rem;
+}
+.job_all-price{
+    font-size: 1.5rem;
+}
+.job_title {
+    margin-bottom: 20px;
+    font-size: 2.25rem;
+    color: #2e2e2e;
+}
+
+.job_dedline {
+    margin-bottom: 20px;
+    font-size: 2.1875rem;
+    color: #343434;
+}
+
+.job_col-btn--1 {
+    text-align: right;
+}
+
+.job_prev {
+    min-width: 140px;
+}
+.job_next {
+    min-width: 140px;
+}
+.fotorama__arr {
+    position: absolute;
+    top: 50%;
+    margin-top: -16px;
+}
+.fotorama__arr {
+    display: inline-block;
+    width: 54px;
+    height: 54px;
+    -webkit-box-shadow: 0 16px 35px rgba(0, 0, 0, .25);
+    box-shadow: 0 16px 35px rgba(0, 0, 0, .25);
+    background-color: #136ecb !important;
+    /* background-image: -o-linear-gradient(31deg, #79ccff 0, #79ccff 1%, #45a2e8 100%) !important; */
+    background-image: linear-gradient(59deg, #79ccff 0, #79ccff 1%, #45a2e8 100%) !important;
+    color: #fff;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-position: left;
+}
+.fotorama__arr::after {
+    content: '';
+    display: block;
+    background-image: url(../img/arrow.png);
+    width: 20px;
+    height: 8px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.fotorama__arr--next::after {
+    -webkit-transform: translate(-50%, -50%) rotate(180deg);
+    -ms-transform: translate(-50%, -50%) rotate(180deg);
+    transform: translate(-50%, -50%) rotate(180deg);
+}
+
+@media screen and (max-width: 992px) {
+    .job_col {
+        width: 99.5625%
+    }
+
+}@media screen and (max-width: 576px) {
+    .job .description{
+        display: none;
+    }
+    .job_all-price{
+        font-size: 19px
+    }
+    .job h3{
+        font-size: 24px;
+        font-weight: normal;
+    }
+}
