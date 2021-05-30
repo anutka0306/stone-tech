@@ -1,0 +1,121 @@
+<div id="popup-button">
+
+    <div class="popup">
+        <div class="popup_bg"></div>
+        <div class="form">
+            <form action="/application.php" method="POST">
+
+                <a class="close"><img src="<?php echo get_template_directory_uri(); ?>/img/popup/close.png"/></a>
+
+
+                <h3>Введите в поле </br> Ваш номер телефона:</h3>
+
+
+                <!-- Скрытые поля, которые содержат данные из UTM метки -->
+                <input type="hidden" name="source" class="source" value=""/>
+                <input type="hidden" name="term" class="term" value=""/>
+                <input type="hidden" name="campaign" class="campaign" value=""/>
+
+                <!-- Скрытое поле, в value которому нужно написать услугу или как-то обозначить форму -->
+                <input name="formname" type="hidden" value="Заявка со всплывающей формы">
+
+                <!-- Основные поля -->
+
+                <input name="telephone" type="Tel" class="applicationTelephone input" maxlength="20"
+                       placeholder="Введите ваш телефон" required/>
+                <input type="submit" class="button" value="Отправить">
+                <div class="popup-text">Мы перезвоним через 7 минут!</div>
+            </form>
+
+
+        </div>
+    </div>
+
+
+    <div class="popup2">
+        <div class="popup_bg"></div>
+        <div class="form">
+            <form action="/application2.php" method="POST">
+
+                <a class="close"><img src="<?php echo get_template_directory_uri(); ?>/img/popup/close.png"/></a>
+
+
+                <h3>Рассчитать стоимость:</h3>
+
+
+                <!-- Скрытые поля, которые содержат данные из UTM метки -->
+                <input type="hidden" name="source" class="source" value=""/>
+                <input type="hidden" name="term" class="term" value=""/>
+                <input type="hidden" name="campaign" class="campaign" value=""/>
+
+                <!-- Скрытое поле, в value которому нужно написать услугу или как-то обозначить форму -->
+                <input name="formname" type="hidden" value="Рассчитать стоимость">
+
+                <!-- Основные поля -->
+
+                <div class="left">
+
+
+                    <input name="name" type="text" class="input" maxlength="20" placeholder="Введите ваше имя"
+                           required/>
+                    <input name="telephone" type="Tel" class="applicationTelephone input" maxlength="20"
+                           placeholder="Введите ваш телефон" required/>
+                    <textarea name="desc" class="input" placeholder="Описание"></textarea>
+
+
+                    <input type="submit" class="button submit1" value="Отправить">
+                </div>
+                <div class="right">
+                    <div class="h">Изделие:</div>
+                    <label>
+                        <input type="radio" name="izdelie" value="Столешницы" checked>
+                        Столешницы
+                    </label>
+
+                    <label>
+                        <input type="radio" name="izdelie" value="Камин">
+                        Камин
+                    </label>
+
+                    <label>
+                        <input type="radio" name="izdelie" value="Ступени">
+                        Ступени
+                    </label>
+
+                    <label>
+                        <input type="radio" name="izdelie" value="Лестницы">
+                        Лестницы
+                    </label>
+
+                    <label>
+                        <input type="radio" name="izdelie" value="Подоконники">
+                        Подоконники
+                    </label>
+
+                    <div class="labels" style="text-align: left;">
+                        <div class="h">Выбрать материал:</div>
+                        <label style="color:#fff;">
+                            <input type="checkbox" name="material[]" value="Гранит"/>гранит
+                        </label>
+                        <label style="color:#fff;">
+                            <input type="checkbox" name="material[]" value="Мрамор"/>мрамор
+                        </label>
+                        <label style="color:#fff;">
+                            <input type="checkbox" name="material[]" value="Оникс"/>оникс
+                        </label>
+                        <label style="color:#fff;">
+                            <input type="checkbox" name="material[]" value="Травертин"/>травертин
+                        </label>
+                    </div>
+
+                </div>
+
+
+            </form>
+
+
+        </div>
+    </div>
+
+
+</div>

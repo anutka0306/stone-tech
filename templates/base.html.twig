@@ -38,10 +38,46 @@
             <script type="text/javascript" src="{{ asset('js/popup.js') }}"></script>
             <!-- Подключение СЛАЙДЕРА -->
             <script src="{{ asset('js/jquery.glide.js') }}"></script>
+
             {#{{ encore_entry_script_tags('app') }}#}
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+            {% block topmenu %}
+                {# top menu #}
+                {{ include('elements/top_menu.html.twig') }}
+            {% endblock %}
+
+            {% block header %}
+                {# header banner#}
+                {{ include('elements/header.html.twig') }}
+            {% endblock %}
+
+            {% block body %}
+            {% endblock %}
+
+            {% block footer %}
+                {{ include('elements/footer.html.twig') }}
+                {{ include('elements/popup.html.twig') }}
+                {{ include('elements/cd-user-modal.html.twig') }}
+                <a href="#" class="scrollup">Наверх</a>
+            {% endblock %}
+
+
     </body>
+
+{% block javascriptBottom %}
+    <script type="text/javascript" src="{{ asset('js/custom.js') }}"></script>
+    <!-- RedHelper -->
+    <script id="rhlpscrtg" type="text/javascript" charset="utf-8" async="async"
+            src="https://web.redhelper.ru/service/main.js?c=stonetech2018">
+    </script>
+    <!--/Redhelper -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            var bLazy = new Blazy({loadInvisible: true});
+        });
+    </script>
+{% endblock %}
 </html>
