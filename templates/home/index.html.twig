@@ -3,5 +3,7 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-    here body
+    {{ include('elements/advantages.html.twig') }}
+    {{ render(controller('App\\Widget\\Rating::show')) }}
 {% endblock %}
+

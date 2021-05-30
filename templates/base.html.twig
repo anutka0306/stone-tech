@@ -23,6 +23,8 @@
             <link rel="stylesheet" type="text/css" href="{{ asset('css/slider.css') }}">
             <link rel="stylesheet" href="{{ asset('css/videofon.css') }}" type="text/css"/>
 
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/rating/rating.css') }}"/>
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/rating/stars.css') }}"/>
             {#{{ encore_entry_link_tags('app') }}#}
         {% endblock %}
 
@@ -79,5 +81,37 @@
             var bLazy = new Blazy({loadInvisible: true});
         });
     </script>
+    <!--шема-->
+    <script type="application/ld+json">
+        {
+            "@context" : "https://schema.org",
+            "@type" : "LocalBusiness",
+            "name" : "Каменные технологии",
+            "image" : "https://www.stone-tech.ru/img/header/logo1.png",
+            "telephone" : "+7(495)961-26-90",
+            "email" : "info@stone-tech.ru",
+            "address" : {
+                "@type" : "PostalAddress",
+                "addressLocality" : "Москва",
+                "streetAddress" : "Электродный проезд, дом 6, строение 1, подъезд 2, офис 15.",
+                "addressCountry" : "Россия"
+            },
+            "openingHours": "Пн-Вс 08:00-21:00",
+            "paymentAccepted": "Оплата наличными, картой",
+            "priceRange": "3000-8000 рублей",
+            "url" : "https://www.stone-tech.ru",
+            "aggregateRating" : {
+                "@type" : "AggregateRating",
+                "ratingValue" : "4,911",
+                "bestRating" : "5",
+                "worstRating" : "4",
+                "ratingCount" : "45"
+            }
+
+
+        }
+    </script>
+
+    <!--шема-->
 {% endblock %}
 </html>

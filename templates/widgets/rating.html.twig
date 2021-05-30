@@ -1,0 +1,58 @@
+
+<div class="rating">
+    <div class="container">
+        <div class="zag">Независимые отзывы:</div>
+        <div class="rating_schema">
+            <div
+                    class="pl-4 mt-2"
+                    itemprop="aggregateRating"
+                    itemscope="itemscope"
+                    itemtype="http://schema.org/AggregateRating"
+            >
+                <div class="rating-box mr-2">
+                    {{ rating.stars_html|raw }}
+                </div>
+                <meta itemprop="worstRating" content="1">
+
+                <div class="rating-details">
+          <span class="mr-1">
+                <strong>
+                    <span itemprop="ratingValue">{{ rating.result.value }}</span>
+                </strong>&nbsp;
+                <span class="text-muted">из&nbsp;
+                    <span itemprop="bestRating">5</span>
+                </span>
+            </span>
+                    <em class="small text-muted">
+                        <span itemprop="ratingCount">{{ rating.result.count }}</span>&nbsp;оценок
+                    </em>
+                </div>
+
+                <div class="clr"></div>
+                <p class="small text-muted"> Рейтинг рассчитывается по отзывам от клиентов.</p>
+            </div>
+        </div>
+
+
+        <div class="row">
+            {% for ratingItem in ratingItems %}
+            <div class="col-lg-3 col-6">
+                <a target="_blank" href="{{ ratingItem.link }}">
+                    <div class="rating-card">
+                        <div class="img">
+                            <img src="/{{ ratingItem.img }}" alt="{{ ratingItem.alt }}">
+                        </div>
+                        <div class="text">
+                            <span>рейтинг</span>
+                            {{ ratingItem.stars_html|raw }}
+{#<?php echo renderStars($ratingItem['stars']) ?>#}
+
+                            <b>{{ ratingItem.rating }} из 5</b>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
