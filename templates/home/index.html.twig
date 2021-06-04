@@ -2,6 +2,12 @@
 
 {% block title %}Hello HomeController!{% endblock %}
 
+{% block header %}
+    {# header banner#}
+    {% embed 'elements/header.html.twig' %}
+    {% endembed %}
+{% endblock %}
+
 {% block body %}
     {{ include('elements/advantages.html.twig') }}
     {{ render(controller('App\\Widget\\Rating::show')) }}

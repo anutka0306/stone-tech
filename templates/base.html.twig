@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
+        <meta name="description" content="{% block description %}{% endblock %}">
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
         {% block stylesheets %}
@@ -51,8 +52,6 @@
             {% endblock %}
 
             {% block header %}
-                {# header banner#}
-                {{ include('elements/header.html.twig') }}
             {% endblock %}
 
             {% block body %}

@@ -1,0 +1,51 @@
+<div>
+    <div>
+
+        <div class="catalog">
+            <div class="wrapper">
+                <div class="items">
+                    <div class="item item-1">
+                        {% block cardImage %}
+                            <img class="alignnone size-medium" src="{{ asset('uploads/2018/01/stoleshnica-iz-kamnia.jpg') }}" width="580" height="580"><br>
+                            <br><img class="mob-img" src="{{ asset('uploads/2018/01/stoleshnica-iz-kamnia.jpg') }}">
+                        {% endblock %}
+                    </div>
+                    <div class="item item-2">
+                        <h3>
+                            {% block cardTitle %}
+                                Столешница из натурального камня
+                            {% endblock %}
+                        </h3>
+                        <div class="text">
+                            {% block cardDescription %}
+                            <div><span>Материал столешницы:</span> из натурального камня</div>
+                            <div><span>Цвет:</span> подберем любой (более 200 вариантов).</div>
+                            <div><span>Стиль:</span> на ваш выбор</div>
+                            <div><span>Конструкция:</span> по вашему желанию (12 профилей на выбор).</div>
+                            <div><span>Размер:</span> подбирается индивидуально.</div>
+                            <div><span>Выезд и замер:</span> бесплатный при оформлении заказа и 100% оплате.</div>
+                            <div><span>Доставка и установка столешниц:</span> Осуществляется по Москве и области.</div>
+                            {% endblock %}
+                        </div>
+
+                        <div class="line "></div>
+                        <div class="price">Цена от
+                            {% block cardPrice %}
+                                13600
+                            {% endblock %}
+                            {% block cardMeasure %}
+                                руб/п.м
+                            {% endblock %}
+                            <span>(Индивидуальные скидки на монтаж)</span></div>
+                        <div class="price-mob"><span>(Индивидуальные скидки на монтаж)</span>
+                            Цена от 13600 руб/п.м</div>
+                        <div class="cta-text">Получите предложение уже через 7 минут</div>
+                        <div style="display: flex">
+                            <button class="popup-button raschet">Рассчитать стоимость</button>
+                            <button class="popup-button raschet">Консультация</button>
+                        </div></div>
+
+                </div></div></div>
+
+    </div>
+</div>

@@ -1,0 +1,24 @@
+#main #allgoods, #main .wpb_gallery{
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 90px;
+    padding-left: 15px;
+    padding-right: 15px;
+    overflow: hidden;
+}
+
+#main #allgoods h3{
+    text-align: left;
+    margin: 20px 0;
+}
+
+.vc_column_container>.vc_column-inner{
+    padding: 0;
+}
+
+.vc_row {
+    margin-left: 0;
+    margin-right: 0;
+    margin: 0 auto;
+}
