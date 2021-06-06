@@ -1,0 +1,42 @@
+<div id="questions" class="b-lazy"  data-src="{{ asset('img/header-slider/slide1.jpg') }}">
+
+    <div class="black"></div>
+
+    <div id="askquestion"></div>
+
+
+    <div class="wrapper">
+
+
+        <h2>Остались вопросы?</h2>
+
+        <h3>Просто оставьте заявку и мы бесплатно вас проконсультируем</h3>
+
+
+        <!-- ФОРМА -->
+
+        <form id="application" class="mainform" action="/application.php" method="POST">
+            <div class="formtext">Введите Ваше имя и телефон</div>
+            <!-- Скрытые поля, которые содержат данные из UTM метки -->
+            <input type="hidden" name="source" class="source" value=""/>
+            <input type="hidden" name="term" class="term" value=""/>
+            <input type="hidden" name="campaign" class="campaign" value=""/>
+
+            <!-- Скрытое поле, в value которому нужно написать услугу или как-то обозначить форму -->
+            <input name="formname" type="hidden" value="Заявка с нижней формы">
+
+            <!-- Основные поля -->
+            <input name="name" class="applicationName input" maxlength="20" placeholder="Введите ваше имя"
+                   required/>
+            <input name="telephone" type="Tel" class="applicationTelephone input" maxlength="20"
+                   placeholder="Введите ваш телефон" required/>
+            <button class="applicationButton button" type="submit"> Отправить</button>
+
+        </form>
+
+        <div class="popup-text">Оставляйте заявки круглосуточно!</div>
+
+
+    </div>
+
+</div>

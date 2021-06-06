@@ -1,0 +1,36 @@
+<div class="wrapper">
+    <div class="seo-block">
+    <div class="container">
+        <div class="row">
+            {% if category.seoTextImg is not empty %}
+                <div class="seo-left col-md-6">
+                    {{ category.seoText|raw }}
+                </div>
+                <div class="seo-right col-md-6 ">
+                    <img class="seo-block__img" src="{{ asset(category.seoTextImg) }}" alt="*">
+                </div>
+                {% else %}
+                    <div class="seo-left col-md-12">
+                        {{ category.seoText|raw }}
+                    </div>
+            {% endif %}
+
+            {% if category.seoTextHidden is not empty %}
+                <div class="seo-left col-12">
+                    <div class="seo-text-none">
+                        {{ category.seoTextHidden|raw }}
+                    </div>
+                    <div class="seo-btn mbtn">Читать далее</div>
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    $('.seo-btn').click(function(){
+        $('.seo-btn').css('display','none');
+        $('.seo-text-none').css('display','block');
+    });
+</script>

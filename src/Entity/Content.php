@@ -97,6 +97,16 @@ class Content
      */
     private $card_image;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $seo_text_hidden;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $seo_text_img;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -290,6 +300,30 @@ class Content
     public function setCardImage(?string $card_image): self
     {
         $this->card_image = $card_image;
+
+        return $this;
+    }
+
+    public function getSeoTextHidden(): ?string
+    {
+        return $this->seo_text_hidden;
+    }
+
+    public function setSeoTextHidden(?string $seo_text_hidden): self
+    {
+        $this->seo_text_hidden = $seo_text_hidden;
+
+        return $this;
+    }
+
+    public function getSeoTextImg(): ?string
+    {
+        return $this->seo_text_img;
+    }
+
+    public function setSeoTextImg(?string $seo_text_img): self
+    {
+        $this->seo_text_img = $seo_text_img;
 
         return $this;
     }

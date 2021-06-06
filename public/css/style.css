@@ -3381,6 +3381,8 @@ button::-moz-focus-inner {
     margin: 0 auto;
     box-shadow: inset 0 5px 82px rgba(45, 45, 45, 0.9);
     position: relative;
+    margin-top: 50px;
+    background-image: url('../img/header-slider/slide1.jpg');
 
 }
 
@@ -4881,4 +4883,58 @@ input[name=address] {
         transform: translateX(10%) skewX(45deg);
         background-position: 100% 0%;
     }
+}
+
+.our-works_wrapper{
+    margin-top: 50px;
+}
+
+/* Seo text */
+.seo-block {
+    margin-top: 20px;
+    color: rgba(54,54,54,.8);
+}
+.seo-block .container {
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: inset 0 0 5px 0 rgb(0 0 0 /50%);
+}
+.seo-block .seo-left .seo-text-none {
+    display: none;
+}
+.seo-block .seo-left .seo-btn {
+    max-width: 280px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    height: 40px;
+    line-height: 40px;
+    margin-top: 10px;
+}
+.seo-block .seo-left .mbtn {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: #fd971f;
+    color: #fff;
+    padding-left: 10px;
+    padding-right: 10px;
+    transition: all .3s;
+    border-radius: 5px;
+    margin-top: 25px;
+}
+.seo-block__img{
+    width: 100%;
+    border-radius: 20px;
+}
+.seo-block h3{
+    font-size: 24px;
+    line-height: 1.3;
+    margin-top: 20px;
+    text-align: left;
+}
+.seo-block h2{
+    font-size: 34px;
+    padding-bottom: 30px;
+    text-align: left;
 }
