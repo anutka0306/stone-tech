@@ -1,0 +1,24 @@
+
+<div class="menu">
+    <ul id="menu-main" class="menu">
+    {% for item in menu %}
+        {% if item['children'] is empty %}
+            <li id="menu-item-223" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-223"><a href="/{{ item[loop.index-1][1] }}">{{ item[loop.index-1][0] }}</a></li>
+            {% else %}
+        <li id="menu-item-212" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-212"><a href="/{{ item[loop.index-1][1] }}">{{ item[loop.index-1][0] }}</a>
+            <ul class="sub-menu">
+                {% for subItem in item['children'] %}
+                <li id="menu-item-266" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-266"><a href="/{{ subItem[1] }}">{{ subItem[0] }}</a></li>
+                {% endfor %}
+            </ul>
+        </li>
+        {% endif %}
+
+    {% endfor %}
+{# Это потом должно тоже пойти в цикл #}
+        <li id="menu-item-223" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-223"><a href="/katalog/">Выбор камня</a></li>
+        <li id="menu-item-226" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-226"><a href="/kontakty/">Контакты</a></li>
+        <li id="menu-item-228" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-228"><a href="/galereja/">Галерея</a></li>
+        <li id="menu-item-274" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-274"><a href="/o-kompanii/">О компании</a></li>
+    </ul>
+</div>

@@ -107,6 +107,16 @@ class Content
      */
     private $seo_text_img;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $menu_name;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $menu_order;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -324,6 +334,30 @@ class Content
     public function setSeoTextImg(?string $seo_text_img): self
     {
         $this->seo_text_img = $seo_text_img;
+
+        return $this;
+    }
+
+    public function getMenuName(): ?string
+    {
+        return $this->menu_name;
+    }
+
+    public function setMenuName(?string $menu_name): self
+    {
+        $this->menu_name = $menu_name;
+
+        return $this;
+    }
+
+    public function getMenuOrder(): ?int
+    {
+        return $this->menu_order;
+    }
+
+    public function setMenuOrder(?int $menu_order): self
+    {
+        $this->menu_order = $menu_order;
 
         return $this;
     }
