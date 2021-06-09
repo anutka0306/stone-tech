@@ -34,6 +34,10 @@ class PageController extends AbstractController
         if($page->getPageType() == 'category'){
             return $this->category($page);
         }
+        //потом над этим подумать
+        if($page->getPageType() == 'simple'){
+            return $this->category($page);
+        }
     }
 
     private function category($category){
