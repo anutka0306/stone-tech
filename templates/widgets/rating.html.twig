@@ -1,4 +1,4 @@
-
+{% if rating['result'] is not null %}
 <div class="rating">
     <div class="container">
         <div class="zag">Независимые отзывы:</div>
@@ -45,7 +45,7 @@
                         <div class="text">
                             <span>рейтинг</span>
                             {{ ratingItem.stars_html|raw }}
-{#<?php echo renderStars($ratingItem['stars']) ?>#}
+
 
                             <b>{{ ratingItem.rating }} из 5</b>
                         </div>
@@ -56,3 +56,4 @@
         </div>
     </div>
 </div>
+{% endif %}

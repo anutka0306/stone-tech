@@ -13,7 +13,9 @@ class Rating extends AbstractController
 
         $rating = array();
         $rating['result'] = $ratingRepository->findOneBy(['path'=>$_SERVER['REQUEST_URI']]);
-        $rating['stars_html'] = $this->renderStars($rating['result']->getValue());
+        if(!is_null($rating['result'])) {
+            $rating['stars_html'] = $this->renderStars($rating['result']->getValue());
+        }
         if (null === $rating) {
             return;
         }
@@ -47,10 +49,11 @@ class Rating extends AbstractController
                 'rating'=> 5.0
             ],
         ];
-
-        foreach ($ratingItems as $key =>$item){
-            $ratingItems[$key]['stars_html'] = $this->renderStars($item['stars']);
-        }
+if(!is_null($rating['result'])) {
+    foreach ($ratingItems as $key => $item) {
+        $ratingItems[$key]['stars_html'] = $this->renderStars($item['stars']);
+    }
+}
         return $this->render('widgets/rating.html.twig', compact('ratingItems', 'rating'));
     }
 
