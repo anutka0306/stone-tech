@@ -50,7 +50,8 @@ class PageController extends AbstractController
 
     private function getOurWorkImages($folderName){
         $finder = new Finder();
-        $folder = trim(str_replace('/','', $folderName));
+        $folder = trim(str_replace('/',' ', $folderName));
+        $folder = str_replace(' ','-', $folder);
         $filesystem = new Filesystem();
         if($filesystem->exists($_SERVER['DOCUMENT_ROOT'].'/images/our_works/'.$folder)){
             $finder->files()->name(['*.jpeg','*.jpg','*.png'])->in($_SERVER['DOCUMENT_ROOT'].'/images/our_works/'.$folder);

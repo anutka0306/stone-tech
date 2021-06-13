@@ -6,6 +6,7 @@ use App\Entity\Content;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -71,10 +72,11 @@ class ContentCrudController extends AbstractCrudController
             TextEditorField::new('card_description', 'Текст карточки изделия')->hideOnIndex(),
             ImageField::new('card_image', 'Картинка карточки')->setUploadDir('/public/uploads/images/cards_images')->setBasePath('/uploads/images/cards_images/')->hideOnIndex(),
         IntegerField::new('card_price', 'Цена в карточке')->setHelp('Рублей')->hideOnIndex(),
-            ChoiceField::new('card_measure', 'Цена за...(единица измерения)')->setChoices([
+            /*ChoiceField::new('card_measure', 'Цена за...(единица измерения)')->setChoices([
                 'изделие' => 1,
                 'п.м' => 2,
-            ])->hideOnIndex(),
+            ])->hideOnIndex(),*/
+            AssociationField::new('measure','Цена за...(единица измерения)')->hideOnIndex(),
           BooleanField::new('top_menu', 'Отображать в верхнем меню')->hideOnIndex(),
             BooleanField::new('index_menu', 'Отображать в меню на главной')->hideOnIndex(),
             ImageField::new('thumb_img', 'Картинка для меню на главной')->setUploadDir('/public/uploads/thumbs')->setBasePath('/uploads/thumbs/')->hideOnIndex(),

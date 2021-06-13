@@ -4,12 +4,31 @@ namespace App\Entity;
 
 use App\Repository\ContentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Measure;
 
 /**
  * @ORM\Entity(repositoryClass=ContentRepository::class)
  */
 class Content
 {
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Measure", inversedBy="contents")
+     */
+
+    private $measure;
+
+    public function getMeasure(): ?Measure
+    {
+        return $this->measure;
+    }
+
+    public function setMeasure(?Measure $measure): self
+    {
+        $this->measure = $measure;
+
+        return $this;
+    }
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -67,10 +86,6 @@ class Content
      */
     private $card_price;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $card_measure;
 
     /**
      * @ORM\Column(type="boolean")
@@ -238,18 +253,6 @@ class Content
     public function setCardPrice(?int $card_price): self
     {
         $this->card_price = $card_price;
-
-        return $this;
-    }
-
-    public function getCardMeasure(): ?int
-    {
-        return $this->card_measure;
-    }
-
-    public function setCardMeasure(?int $card_measure): self
-    {
-        $this->card_measure = $card_measure;
 
         return $this;
     }

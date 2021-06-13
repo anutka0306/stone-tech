@@ -47,7 +47,9 @@
         {% endblock %}
 
         {% block cardMeasure %}
-            {{ category.cardMeasure }}
+            {% if category.measure is not null %}
+                {{ category.measure.name }}
+            {% endif %}
         {% endblock %}
     {% endembed %}
 
@@ -69,6 +71,7 @@
                 <h2>ПРИМЕРЫ ВЫПОЛНЕННЫХ РАБОТ</h2>
                 <p class="tac m0a">С конца 2005 года мы успешно выполнили более 2000 заказов. Вот небольшая часть работ проделанных в прошедшем сезоне:</p>
             </div>
+            {#{{ dump(works) }}#}
             <div class="our-works-small-slider">
             {% for work in works %}
                 <div class="our-works-small-item">

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20210606063037 extends AbstractMigration
+final class Version20210612191257 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,12 +20,16 @@ final class Version20210606063037 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE content ADD seo_text_hidden LONGTEXT DEFAULT NULL, ADD seo_text_img VARCHAR(255) DEFAULT NULL');
+        $this->addSql('ALTER TABLE content ADD measure_id INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE content ADD CONSTRAINT FK_FEC530A95DA37D00 FOREIGN KEY (measure_id) REFERENCES measure (id)');
+        $this->addSql('CREATE INDEX IDX_FEC530A95DA37D00 ON content (measure_id)');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE content DROP seo_text_hidden, DROP seo_text_img');
+        $this->addSql('ALTER TABLE content DROP FOREIGN KEY FK_FEC530A95DA37D00');
+        $this->addSql('DROP INDEX IDX_FEC530A95DA37D00 ON content');
+        $this->addSql('ALTER TABLE content DROP measure_id');
     }
 }
