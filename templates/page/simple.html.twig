@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ page.seoTitle }}
+{% endblock %}
+
+{% block description %}
+    {{ page.seoDescription }}
+{% endblock %}
+
+{% block header %}
+    {# header banner#}
+    {% embed 'elements/header.html.twig' %}
+        {% block h1 %}
+            {{ page.name }}
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block body %}
+    {% if page.seoText is not empty %}
+        {{ include('elements/simple-seo-text.html.twig') }}
+    {% endif %}
+{% endblock %}

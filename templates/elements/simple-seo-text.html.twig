@@ -1,0 +1,29 @@
+<div class="wrapper">
+    <div class="simple-seo-block">
+    <div class="container">
+        <div class="row">
+            {% if page.seoText is not empty %}
+                <div class="col-md-12 sky-bg">
+                    {{ page.seoText|raw }}
+                </div>
+            {% endif %}
+
+            {% if page.seoTextHidden is not empty %}
+                <div class="seo-left col-12 sky-bg">
+                    <div class="seo-text-none">
+                        {{ page.seoTextHidden|raw }}
+                    </div>
+                    <div class="seo-btn mbtn">Читать далее</div>
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    $('.seo-btn').click(function(){
+        $('.seo-btn').css('display','none');
+        $('.seo-text-none').css('display','block');
+    });
+</script>

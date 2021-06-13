@@ -36,8 +36,14 @@ class PageController extends AbstractController
         }
         //потом над этим подумать
         if($page->getPageType() == 'simple'){
-            return $this->category($page);
+            return $this->simple($page);
         }
+    }
+
+    private function simple($simple){
+        return $this->render('page/simple.html.twig',[
+           'page' => $simple
+        ]);
     }
 
     private function category($category){
