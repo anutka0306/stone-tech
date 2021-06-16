@@ -75,7 +75,7 @@
             <div class="our-works-small-slider">
             {% for work in works %}
                 <div class="our-works-small-item">
-                    <img data-lazy="{{ work }}" alt="" data-index="{{ work }}" />
+                    <img data-lazy="{{ work }}" alt="" data-index="{{ loop.index-1 }}" />
                 </div>
             {% endfor %}
             </div><div class="our-works-bigslider-wrapper">

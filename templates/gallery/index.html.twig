@@ -1,0 +1,170 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{{ page.seoTitle }}
+{% endblock %}
+
+{% block description %}
+    {{ page.seoDescription }}
+{% endblock %}
+
+{% block header %}
+    {# header banner#}
+    {% embed 'elements/header.html.twig' %}
+        {% block h1 %}
+           {{ page.name }}
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block body %}
+{{ dump(galleries) }}
+    {% for key in galleries|keys %}
+        <h2>{{ key }}</h2>
+    <div class="our-works_wrapper">
+
+        <div class="our-works-small-slider multi-gallery-small{{ loop.index-1 }}">
+            {% for gallery in galleries[key] %}
+                <div class="our-works-small-item">
+                    <img data-lazy="{{ gallery }}" alt="" data-index="{{ loop.index-1 }}" />
+                </div>
+            {% endfor %}
+        </div><div class="our-works-bigslider-wrapper multi-gallery-big-wrapper{{ loop.index-1 }}">
+            <div class="our-works-bigslider-overlay multi-gallery-bigslider-overlay{{ loop.index-1 }}"></div>
+
+            <div class="bigslider-close multi-gallery-close{{ loop.index-1 }}">&#215;</div>
+
+            <div class="our-works-bigslider multi-gallery-big{{ loop.index-1 }}">
+                {% for gallery in galleries[key] %}
+                    <div class="our-works-big-item">
+                        <img data-lazy="{{ gallery }}" alt="" />
+                    </div>
+                {% endfor %}
+            </div></div>
+    </div>
+
+        {#{{ dump(galleries[key]) }}#}
+    {% endfor %}
+    <script>
+        $( ".our-works_wrapper" ).each(function(index) {
+            //console.log(index);
+           $('.multi-gallery-small'+index).slick({
+                infinite: true,
+                slidesToShow: 5,
+                centerMode: false,
+                slidesToScroll: 1,
+                lazyLoad: 'ondemand',
+                responsive: [
+                    {
+                        breakpoint: 1599,
+                        settings: {
+                            slidesToShow: 4,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 991,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 767,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 567,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
+            });
+
+        });
+
+        //Теперь для каждой галереи
+        let screen_width = document.documentElement.clientWidth;
+
+        let our_works_bigslider0 = $('.multi-gallery-big0').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            lazyLoad: 'ondemand'
+        });
+        let our_works_bigslider1 = $('.multi-gallery-big1').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            lazyLoad: 'ondemand'
+        });
+        let our_works_bigslider2 = $('.multi-gallery-big2').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            lazyLoad: 'ondemand'
+        });
+        let our_works_bigslider3 = $('.multi-gallery-big3').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            lazyLoad: 'ondemand'
+        });
+        let our_works_bigslider4 = $('.multi-gallery-big4').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            lazyLoad: 'ondemand'
+        });
+
+
+        $('.our-works-small-item').on('click',function (event) {
+            //возьмем индекс галереи
+           let classList = $(this).parent().parent().parent().attr('class').split(' ');
+           let galleryIndex = classList[1].replace('multi-gallery-small', '');
+
+            if(screen_width > 576){
+                $('.multi-gallery-big-wrapper'+galleryIndex).fadeIn(400);
+                let slider_index = $(event.target).data('index');
+                //(slider_index);
+                $('.multi-gallery-big'+galleryIndex).slick('slickGoTo', slider_index);
+            }
+        });
+
+        //закрытие галереи
+        $('.multi-gallery-close0').on('click',function () {
+            $('.multi-gallery-big-wrapper0').fadeOut(400);
+        });
+        $('.multi-gallery-bigslider-overlay0').on('click',function () {
+            $('.multi-gallery-big-wrapper0').fadeOut(400);
+        });
+
+        $('.multi-gallery-close1').on('click',function () {
+            $('.multi-gallery-big-wrapper1').fadeOut(400);
+        });
+        $('.multi-gallery-bigslider-overlay1').on('click',function () {
+            $('.multi-gallery-big-wrapper1').fadeOut(400);
+        });
+
+        $('.multi-gallery-close2').on('click',function () {
+            $('.multi-gallery-big-wrapper2').fadeOut(400);
+        });
+        $('.multi-gallery-bigslider-overlay2').on('click',function () {
+            $('.multi-gallery-big-wrapper2').fadeOut(400);
+        });
+        $('.multi-gallery-close3').on('click',function () {
+            $('.multi-gallery-big-wrapper3').fadeOut(400);
+        });
+        $('.multi-gallery-bigslider-overlay3').on('click',function () {
+            $('.multi-gallery-big-wrapper3').fadeOut(400);
+        });
+        $('.multi-gallery-close4').on('click',function () {
+            $('.multi-gallery-big-wrapper4').fadeOut(400);
+        });
+        $('.multi-gallery-bigslider-overlay4').on('click',function () {
+            $('.multi-gallery-big-wrapper4').fadeOut(400);
+        });
+
+
+    </script>
+{% endblock %}
