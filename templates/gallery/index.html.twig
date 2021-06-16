@@ -18,8 +18,8 @@
 {% endblock %}
 
 {% block body %}
-{{ dump(galleries) }}
-    {% for key in galleries|keys %}
+    <div class="multi-gallery_wrapper">
+        {% for key in galleries|keys %}
         <h2>{{ key }}</h2>
     <div class="our-works_wrapper">
 
@@ -43,11 +43,10 @@
             </div></div>
     </div>
 
-        {#{{ dump(galleries[key]) }}#}
     {% endfor %}
+    </div>
     <script>
         $( ".our-works_wrapper" ).each(function(index) {
-            //console.log(index);
            $('.multi-gallery-small'+index).slick({
                 infinite: true,
                 slidesToShow: 5,
@@ -126,7 +125,6 @@
             if(screen_width > 576){
                 $('.multi-gallery-big-wrapper'+galleryIndex).fadeIn(400);
                 let slider_index = $(event.target).data('index');
-                //(slider_index);
                 $('.multi-gallery-big'+galleryIndex).slick('slickGoTo', slider_index);
             }
         });
