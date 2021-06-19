@@ -132,6 +132,11 @@ class Content
      */
     private $menu_order;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Category::class, inversedBy="content", cascade={"persist", "remove"})
+     */
+    private $category_id;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -361,6 +366,18 @@ class Content
     public function setMenuOrder(?int $menu_order): self
     {
         $this->menu_order = $menu_order;
+
+        return $this;
+    }
+
+    public function getCategoryId(): ?Category
+    {
+        return $this->category_id;
+    }
+
+    public function setCategoryId(?Category $category_id): self
+    {
+        $this->category_id = $category_id;
 
         return $this;
     }

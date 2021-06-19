@@ -2,6 +2,9 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Category;
+use App\Entity\Color;
+use App\Entity\Products;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -32,9 +35,15 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToUrl('На сайт','fas fa-home', '/');
-       // yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
-       yield MenuItem::linkToCrud('Страницы','fa fa-tags', Content::class);
+        return [
+            MenuItem::linkToUrl('На сайт','fas fa-home', '/'),
+            MenuItem::linkToCrud('Страницы','fa fa-tags', Content::class),
+            MenuItem::subMenu('Каталог продуктов', 'fas fa-cookie')->setSubItems([
+                MenuItem::linkToCrud('Категории', 'fas fa-list', Category::class),
+                MenuItem::linkToCrud('Товары', 'fas fa-cookie', Products::class),
+                MenuItem::linkToCrud('Цвета', 'fas fa-brush', Color::class),
+            ]),
+        ];
+
     }
 }

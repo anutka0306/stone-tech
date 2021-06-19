@@ -9,6 +9,7 @@ use App\Repository\ContentRepository;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use App\Repository\ProductsRepository;
 
 
 class PageController extends AbstractController
@@ -17,10 +18,12 @@ class PageController extends AbstractController
      * @var ContentRepository
      */
    protected $page_repository;
+   protected $products_repository;
 
-   public function __construct(ContentRepository $repository)
+   public function __construct(ContentRepository $repository, ProductsRepository $productsRepository)
    {
        $this->page_repository = $repository;
+       $this->products_repository = $productsRepository;
    }
 
     /**
@@ -48,9 +51,11 @@ class PageController extends AbstractController
 
     private function category($category){
         $ourWorks = $this->getOurWorkImages($category->getPath());
+        $products = $this->getProducts($this->products_repository, $category->getCategoryId());
         return $this->render('page/category.html.twig',[
            'category'=>$category,
             'works' => $ourWorks,
+            'products' => $products,
         ]);
     }
 
@@ -71,6 +76,11 @@ class PageController extends AbstractController
 
 
         return $files;
+    }
+
+    private function getProducts(ProductsRepository $productsRepository, $categoryId){
+        $products = $productsRepository->findBy(['category_id' => $categoryId]);
+        return $products;
     }
 
 }

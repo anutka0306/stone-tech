@@ -20,6 +20,7 @@ class Measure
     public function __construct()
     {
         $this->contents = new ArrayCollection();
+        $this->products = new ArrayCollection();
     }
 
     public function __toString()
@@ -46,6 +47,11 @@ class Measure
      * @ORM\Column(type="string", length=100)
      */
     private $name;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Products::class, mappedBy="measure")
+     */
+    private $products;
 
     public function getId(): ?int
     {
@@ -80,6 +86,36 @@ class Measure
             // set the owning side to null (unless already changed)
             if ($content->getMeasure() === $this) {
                 $content->setMeasure(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Products[]
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Products $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->setMeasure($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Products $product): self
+    {
+        if ($this->products->removeElement($product)) {
+            // set the owning side to null (unless already changed)
+            if ($product->getMeasure() === $this) {
+                $product->setMeasure(null);
             }
         }
 

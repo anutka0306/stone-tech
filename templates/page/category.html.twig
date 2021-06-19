@@ -18,6 +18,7 @@
 {% endblock %}
 
 {% block body %}
+
     {{ render(controller('App\\Widget\\Rating::show')) }}
 
     {% embed 'elements/advantages.html.twig' %}
@@ -52,6 +53,11 @@
             {% endif %}
         {% endblock %}
     {% endembed %}
+
+    {# Каталог #}
+    {% if products is not empty %}
+        {% include 'elements/catalog-block.html.twig' with {'products': products} %}
+    {% endif %}
 
     {# Преимущества нижние #}
     {# Вот здесь нужно будет сделать проверку после реализации таблицы #}
