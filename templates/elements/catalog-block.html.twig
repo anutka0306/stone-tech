@@ -69,6 +69,7 @@
               }
            $('.color-filter__item').removeClass('active-color');
            $(this).addClass('active-color');
+              showAjaxLoader();
            showByColor(color, category, sort);
           }
       );
@@ -82,6 +83,7 @@
                    color = $('.active-color').data('color');
                }
                category = $('.color-filter__item:first').data('category');
+              showAjaxLoader();
                showBySort(color, category, sort);
           }
       );
@@ -95,12 +97,17 @@
                 if(typeof sort == "undefined"){
                     sort = 'no';
                 }
+                showAjaxLoader();
                 showAll(category, sort);
         })
 
 
 
     });
+
+    function showAjaxLoader() {
+        $(".products").append('<div class="ajax_overlay" style="background-color: rgb(255, 255, 255); opacity: 0.7; width: 100%; height: 100%; position: absolute; top: 0px; left: 0px; z-index: 99999;"><div class="ajax_loader"></div></div>');
+    }
 
     function showAll(category, sort) {
         $.ajax({
