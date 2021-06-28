@@ -4987,12 +4987,71 @@ input[name=address] {
     text-align: center;
     margin: 5px;
 }
-.product .product .mbtn {
-    width: 98%;
-    margin-right: 1%;
-}
+
 .product button.raschet{
     height: 40px;
-    margin: 10px;
+    margin: 10px 1% 0 10px;
     text-transform: none;
+    width: 98%;
+}
+
+.product-sort{
+    width: 200px;
+    padding: 20px;
+}
+
+.filters_wrapper{
+    padding: 20px;
+}
+.color-filter .color-header{
+    padding-left: 20px;
+    cursor: pointer;
+    position: relative;
+}
+.color-filter .color-header:before{
+    content: "";
+    width: 15px;
+    height: 15px;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    position: absolute;
+    background: url(/img/down-arrow.svg) 50% no-repeat;
+    background-size: cover;
+}
+.color-filter_body{
+    padding-left: 20px;
+    padding-top: 20px;
+    display: flex;
+}
+.color-filter__item{
+    margin: 5px;
+    width: 30px;
+    height: 30px;
+}
+.color-filter__item:hover,
+.active-color{
+    border: 3px solid #fff;
+    outline: 2px solid #999;
+}
+
+.clear-filter{
+    margin-bottom: 30px;
+}
+
+.clear-filter .mbtn{
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: #2aa5cc;
+    color: #fff;
+    padding-left: 10px;
+    padding-right: 10px;
+    transition: all 3s;
+    border-radius: 5px;
+    min-height: 40px;
+    font-weight: 700;
+    display: flex;
+    font-size: 14px;
+    align-items: center;
 }

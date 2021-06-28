@@ -52,10 +52,12 @@ class PageController extends AbstractController
     private function category($category){
         $ourWorks = $this->getOurWorkImages($category->getPath());
         $products = $this->getProducts($this->products_repository, $category->getCategoryId());
+        $colors = $this->getColors($products);
         return $this->render('page/category.html.twig',[
            'category'=>$category,
             'works' => $ourWorks,
             'products' => $products,
+            'colors' => $colors,
         ]);
     }
 
@@ -81,6 +83,15 @@ class PageController extends AbstractController
     private function getProducts(ProductsRepository $productsRepository, $categoryId){
         $products = $productsRepository->findBy(['category_id' => $categoryId]);
         return $products;
+    }
+
+    private function getColors($products){
+        $colors = array();
+        foreach ($products as $product){
+            $colors[] = $product->getColor();
+        }
+        return array_unique($colors);
+
     }
 
 }

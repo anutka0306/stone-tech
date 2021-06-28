@@ -1,18 +1,163 @@
-{{ dump(products) }}
-<div class="products">
-    {% for product in products %}
-        <div class="product">
-            <a href="{{ product.path }}" target="_blank">
-                <img src="{{ product.image }}" alt="Тканевые вертикальные жалюзи Лайн-II-белый">
-            </a>
-            <div class="product__name">
-                <a href="{{ product.path }}" target="_blank">
-                    {{ product.name }}
-                </a>
+
+<div class="row">
+    <div class="col-md-2 col-sm-12">
+        <div class="filters_wrapper">
+            <div class="clear-filter" style="display: none">
+                <span class="mbtn">Сбросить фильтры</span>
             </div>
-            <div class="product__price">{{ product.price}} {{ product.measure.name }}</div>
-            <button class="popup-button raschet">Рассчитать</button>
-            <button class="popup-button raschet">Консультация</button>
+
+            <div class="color-filter">
+                <div class="color-header">
+                    Цвет:
+                </div>
+                <div class="color-filter_body">
+                    {% for color in colors %}
+                        <a href="#" title="{{ color.name }}" data-color="{{ color.id }}" data-category ="{{ category }}" class="color-filter__item" style="background-color: {{ color.code }}"></a>
+                {% endfor %}
+                </div>
+            </div>
         </div>
-    {% endfor %}
+    </div>
+    <div class="col-md-9 col-sm-12">
+        <div class="product-sort">
+            <form>
+                <div class="form-group">
+                    <select class="form-control" id="sortSelect">
+                        <option selected disabled value="no">Сортировка</option>
+                        <option value="ASC">По возрастанию цены</option>
+                        <option value="DESC">По убыванию цены</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div class="products">
+            {% for product in products %}
+                <div class="product">
+                    <a href="{{ product.path }}" target="_blank">
+                        <img src="/uploads/products/{{ product.image }}" alt="{{ product.name }}">
+                    </a>
+                    <div class="product__name">
+                        <a href="{{ product.path }}" target="_blank">
+                            {{ product.name }}
+                        </a>
+                    </div>
+                    <div class="product__price">{{ product.price}} {{ product.measure.name }}</div>
+                    <button class="popup-button raschet">Рассчитать</button>
+                    <button class="popup-button raschet">Консультация</button>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 </div>
+
+
+<script>
+    $( document ).ready(function() {
+        let color = 0;
+        let category = 0;
+        let sort = 'no';
+
+      $(".color-filter__item").click(
+          function (event) {
+            event.preventDefault();
+              $(".clear-filter").css('display','flex');
+           color =  $(this).data('color');
+           category = $(this).data('category');
+           sort = $("#sortSelect option[selected = 'selected']").val();
+              if(typeof sort == "undefined"){
+                  sort = 'no';
+              }
+           $('.color-filter__item').removeClass('active-color');
+           $(this).addClass('active-color');
+           showByColor(color, category, sort);
+          }
+      );
+
+      $("#sortSelect").change(
+          function (event) {
+               sort = $(this).val();
+               $("#sortSelect option").attr('selected', false);
+               $("#sortSelect option[value='"+sort+"']").attr('selected',true);
+               if($('.active-color').length > 0) {
+                   color = $('.active-color').data('color');
+               }
+               category = $('.color-filter__item:first').data('category');
+               showBySort(color, category, sort);
+          }
+      );
+
+        $(".clear-filter").click(
+            function (event) {
+                $(".clear-filter").css('display','none');
+                $('.color-filter__item').removeClass('active-color');
+                category = $('.color-filter__item:first').data('category');
+                sort = $("#sortSelect option[selected = 'selected']").val();
+                if(typeof sort == "undefined"){
+                    sort = 'no';
+                }
+                showAll(category, sort);
+        })
+
+
+
+    });
+
+    function showAll(category, sort) {
+        $.ajax({
+            url: '/clear-filter/'+category+'/'+sort,
+            type: 'POST',
+            dataType: 'html',
+            data:{
+                'category': category,
+                'sort': sort,
+            },
+            success: function (response) {
+                $(".products").html(response);
+            },
+            error: function (response) {
+                console.log('error');
+            }
+        })
+    }
+
+    function showBySort(color, category, sort) {
+        $.ajax({
+            url: '/sort/'+category+'/'+color+'/'+sort,
+            type: 'POST',
+            dataType:'html',
+            data:{
+                'color': color,
+                'category': category,
+                'sort': sort,
+            },
+
+            success: function (response) {
+                $(".products").html(response);
+            },
+            error: function (response) {
+                console.log('Error');
+            }
+        });
+    }
+
+    function showByColor(color, category, sort){
+        $.ajax({
+            url: '/color/'+category+'/'+color+'/'+sort,
+            type: 'POST',
+            dataType:'html',
+            data:{
+                'color': color,
+                'category': category,
+                'sort': sort,
+            },
+
+            success: function (response) {
+                $(".products").html(response);
+            },
+            error: function (response) {
+                console.log('Error');
+            }
+        });
+    }
+
+</script>

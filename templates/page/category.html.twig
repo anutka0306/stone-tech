@@ -56,7 +56,7 @@
 
     {# Каталог #}
     {% if products is not empty %}
-        {% include 'elements/catalog-block.html.twig' with {'products': products} %}
+        {% include 'elements/catalog-block.html.twig' with {'products': products, 'category': category.categoryId.id} %}
     {% endif %}
 
     {# Преимущества нижние #}

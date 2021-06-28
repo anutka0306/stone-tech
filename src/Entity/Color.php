@@ -28,15 +28,26 @@ class Color
      * @ORM\Column(type="string", length=255)
      */
     private $code;
+    
 
     /**
      * @ORM\OneToMany(targetEntity=Products::class, mappedBy="color")
      */
     private $products;
 
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $slug;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return (string) $this->getName();
     }
 
     public function getId(): ?int
@@ -94,6 +105,18 @@ class Color
                 $product->setColor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
