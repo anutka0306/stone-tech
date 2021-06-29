@@ -1,10 +1,10 @@
 {% for product in products %}
     <div class="product">
-        <a href="{{ product.path }}" target="_blank">
+        <a href="/{{ product.path }}" target="_blank">
             <img src="/uploads/products/{{ product.image }}" alt="{{ product.name }}">
         </a>
         <div class="product__name">
-            <a href="{{ product.path }}" target="_blank">
+            <a href="/{{ product.path }}" target="_blank">
                 {{ product.name }}
             </a>
         </div>

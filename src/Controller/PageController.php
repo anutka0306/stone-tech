@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Content;
+use App\Entity\Products;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,17 +33,26 @@ class PageController extends AbstractController
      */
 
     public function index($token){
-        if(!$page = $this->page_repository->findOneBy(['path'=>$token])){
+        if(!$page = $this->products_repository->findOneBy(['path'=>$token]) AND !$page = $this->page_repository->findOneBy(['path'=>$token]) ){
             throw $this->createNotFoundException(sprintf('Page %s not found', $token));
         }
-        if($page->getPageType() == 'category'){
-            return $this->category($page);
+
+        if($page instanceof Products){
+            return $this->product($page);
         }
-        //потом над этим подумать
-        if($page->getPageType() == 'simple'){
-            return $this->simple($page);
+
+        if($page instanceof Content) {
+            if ($page->getPageType() == 'category') {
+                return $this->category($page);
+            }
+            //потом над этим подумать
+            if ($page->getPageType() == 'simple') {
+                return $this->simple($page);
+            }
         }
     }
+    
+    
 
     private function simple($simple){
         return $this->render('page/simple.html.twig',[
@@ -58,6 +69,12 @@ class PageController extends AbstractController
             'works' => $ourWorks,
             'products' => $products,
             'colors' => $colors,
+        ]);
+    }
+
+    private function product($product){
+        return $this->render('product/index.html.twig',[
+            'product'=>$product,
         ]);
     }
 
