@@ -34,6 +34,7 @@ class Content
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
+
     private $id;
 
     /**

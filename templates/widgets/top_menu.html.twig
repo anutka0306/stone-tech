@@ -3,20 +3,18 @@
     <ul id="menu-main" class="menu">
     {% for item in menu %}
         {% if item['children'] is empty %}
-            <li id="menu-item-223" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-223"><a href="/{{ item[loop.index-1][1] }}">{{ item[loop.index-1][0] }}</a></li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/{{ item[loop.index-1][1] }}">{{ item[loop.index-1][0] }}</a></li>
             {% else %}
-        <li id="menu-item-212" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-212"><a href="/{{ item[loop.index-1][1] }}">{{ item[loop.index-1][0] }}</a>
+        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children"><a href="/{{ item[loop.index-1][1] }}">{{ item[loop.index-1][0] }}</a>
             <ul class="sub-menu">
                 {% for subItem in item['children'] %}
-                <li id="menu-item-266" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-266"><a href="/{{ subItem[1] }}">{{ subItem[0] }}</a></li>
+                <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/{{ subItem[1] }}">{{ subItem[0] }}</a></li>
                 {% endfor %}
             </ul>
         </li>
         {% endif %}
 
     {% endfor %}
-{# Это потом должно тоже пойти в цикл #}
-        <li id="menu-item-223" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-223"><a href="/katalog/">Выбор камня</a></li>
 
     </ul>
 </div>

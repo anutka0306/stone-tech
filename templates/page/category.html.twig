@@ -28,31 +28,37 @@
     {% endembed %}
 
     {# Карточка #}
-    {% embed 'elements/category_card.html.twig' %}
-        {% block cardImage %}
-            <img class="alignnone size-medium" src="/uploads/images/cards_images/{{ asset(category.cardImage) }}" width="580" height="580"><br>
-            <br><img class="mob-img" src="/uploads/images/cards_images/{{ asset(category.cardImage) }}">
 
-        {% endblock %}
+    {% if category.cardTitle is not null and category.cardDescription is not null%}
+            {% embed 'elements/category_card.html.twig' %}
 
-        {% block cardTitle %}
-            {{ category.cardTitle }}
-        {% endblock %}
+                    {% block cardImage %}
+                        {% if category.cardImage is not null %}
+                        <img class="alignnone size-medium" src="/uploads/images/cards_images/{{ asset(category.cardImage) }}" width="580" height="580"><br>
+                        <br><img class="mob-img" src="/uploads/images/cards_images/{{ asset(category.cardImage) }}">
+                        {% endif %}
+                    {% endblock %}
 
-        {% block cardDescription %}
-            {{ category.cardDescription|raw }}
-        {% endblock %}
 
-        {% block cardPrice %}
-            {{ category.cardPrice }}
-        {% endblock %}
+            {% block cardTitle %}
+                {{ category.cardTitle }}
+            {% endblock %}
 
-        {% block cardMeasure %}
-            {% if category.measure is not null %}
-                {{ category.measure.name }}
-            {% endif %}
-        {% endblock %}
-    {% endembed %}
+            {% block cardDescription %}
+                {{ category.cardDescription|raw }}
+            {% endblock %}
+
+            {% block cardPrice %}
+                {{ category.cardPrice }}
+            {% endblock %}
+
+            {% block cardMeasure %}
+                {% if category.measure is not null %}
+                    {{ category.measure.name }}
+                {% endif %}
+            {% endblock %}
+        {% endembed %}
+    {% endif %}
 
     {# Каталог #}
     {% if products is not empty %}

@@ -10,11 +10,11 @@ $(function () {
 	header_phone.hide();
 	$(window).scroll(function () {
 		if ($(window).scrollTop() > headertop) {
-			$('#menu-item-274').hide();
+			$('ul#menu-main > li.menu-item:last').hide();
 			header_phone.show();
 		}
 		else {
-			$('#menu-item-274').show();
+			$('ul#menu-main > li.menu-item:last').show();
 			header_phone.hide();
 		}
 		

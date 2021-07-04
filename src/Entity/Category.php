@@ -25,7 +25,7 @@ class Category
     private $name;
 
     /**
-     * @ORM\OneToOne(targetEntity=Content::class, mappedBy="category_id", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Content::class, mappedBy="category_id", cascade={"persist", "remove"})
      */
     private $content;
 

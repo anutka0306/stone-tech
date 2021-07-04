@@ -1,0 +1,27 @@
+<div id="allgoods">
+    <div id="catalog"></div>
+    <div class="wrapper" id="anchor2">
+
+
+        <h2>Мы изготавливаем:</h2>
+{% for row in menuItems|batch(4) %}
+        <div class="items items-{{ loop.index }}">
+
+            <div class="items-mobile items-mobile-{{ loop.index }}">
+                {% for item in row %}
+                <a href="/{{ item.path  }}">
+                    <div class="item item-1">
+                        <img class="b-lazy b-loaded" src="/uploads/thumbs/{{ item.thumbImg }}" data-pagespeed-url-hash="31059146" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+                        <div class="item-text">{{ item.menuName }}</div>
+                    </div>
+                </a>
+
+                {% endfor %}
+            </div>
+
+        </div>
+
+{% endfor %}
+    </div>
+
+</div>
