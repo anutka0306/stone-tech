@@ -4915,7 +4915,7 @@ input[name=address] {
     border: none;
     outline: none;
     cursor: pointer;
-    background: #fd971f;
+    background: #6baf0b;
     color: #fff;
     padding-left: 10px;
     padding-right: 10px;
@@ -4976,6 +4976,19 @@ input[name=address] {
     margin: 10px;
     width: calc(25% - 20px);
 }
+
+@media (max-width: 768px) {
+    .products .product{
+        width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 470px) {
+    .products .product{
+        width: calc(60% - 20px);
+    }
+}
+
 .product a {
     text-align: center;
 }
