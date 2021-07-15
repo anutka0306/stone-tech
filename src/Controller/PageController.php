@@ -4,7 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Content;
 use App\Entity\Products;
+use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ContentRepository;
@@ -12,6 +15,7 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use App\Repository\ProductsRepository;
+use Knp\Component\Pager\Paginator;
 
 
 class PageController extends AbstractController
@@ -20,19 +24,25 @@ class PageController extends AbstractController
      * @var ContentRepository
      */
    protected $page_repository;
+    /**
+     * @var PaginatorInterface
+     */
+    protected $paginator;
+
    protected $products_repository;
 
-   public function __construct(ContentRepository $repository, ProductsRepository $productsRepository)
+   public function __construct(ContentRepository $repository, ProductsRepository $productsRepository, PaginatorInterface $paginator)
    {
        $this->page_repository = $repository;
        $this->products_repository = $productsRepository;
+       $this->paginator = $paginator;
    }
 
     /**
      * @Route("/{token}", name="dynamic_pages",requirements={"token"= ".+\/$"})
      */
 
-    public function index($token){
+    public function index($token, PaginatorInterface $paginator, Request $request, EntityManagerInterface $em){
         if(!$page = $this->products_repository->findOneBy(['path'=>$token]) AND !$page = $this->page_repository->findOneBy(['path'=>$token]) ){
             throw $this->createNotFoundException(sprintf('Page %s not found', $token));
         }
@@ -43,7 +53,7 @@ class PageController extends AbstractController
 
         if($page instanceof Content) {
             if ($page->getPageType() == 'category') {
-                return $this->category($page);
+                return $this->category($page, $paginator, $request);
             }
             //потом над этим подумать
             if ($page->getPageType() == 'simple') {
@@ -60,15 +70,22 @@ class PageController extends AbstractController
         ]);
     }
 
-    private function category($category){
+    private function category($category, $paginator, $request){
         $ourWorks = $this->getOurWorkImages($category->getPath());
         $products = $this->getProducts($this->products_repository, $category->getCategoryId());
+        $pagination = $paginator->paginate(
+            $products, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            2 /*limit per page*/
+        );
+        $pagination->setParam('_fragment', 'projects');
         $colors = $this->getColors($products);
         return $this->render('page/category.html.twig',[
            'category'=>$category,
             'works' => $ourWorks,
             'products' => $products,
             'colors' => $colors,
+            'pagination'=>$pagination,
         ]);
     }
 
