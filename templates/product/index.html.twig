@@ -18,6 +18,7 @@
 {% endblock %}
 
 {% block body %}
+    <a id="product-card"></a>
     {{ render(controller('App\\Widget\\Rating::show')) }}
     {# Карточка #}
     {% embed 'elements/category_card.html.twig' %}

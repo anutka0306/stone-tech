@@ -1,4 +1,4 @@
-{{ dump(path) }}
+{#{{ dump(path) }}#}
 
 <a id="catalog-anchor"></a>
 <div id="catalog-block__wrapper">
@@ -38,15 +38,15 @@
             <div class="products">
                 {% for product in pagination %}
                     <div class="product">
-                        <a href="/{{ product.path }}" target="_blank">
+                        <a href="/{{ product.path }}#product-card" target="_blank">
                             <img src="/uploads/products/{{ product.image }}" alt="{{ product.name }}">
                         </a>
                         <div class="product__name">
-                            <a href="/{{ product.path }}" target="_blank">
+                            <a href="/{{ product.path }}#product-card" target="_blank">
                                 {{ product.name }}
                             </a>
                         </div>
-                        <div class="product__price">{{ product.price}} {{ product.measure.name }}</div>
+                        <div class="product__price">от {{ product.price}} {{ product.measure.name }}</div>
                         <button class="popup-button raschet">Рассчитать</button>
                         <button class="popup-button raschet">Консультация</button>
                     </div>
