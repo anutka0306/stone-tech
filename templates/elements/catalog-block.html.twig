@@ -1,8 +1,12 @@
-<div class="row">
+{{ dump(path) }}
+
+<a id="catalog-anchor"></a>
+<div id="catalog-block__wrapper">
+    <div class="row">
     <div class="col-md-2 col-sm-12">
         <div class="filters_wrapper">
-            <div class="clear-filter" style="display: none">
-                <span class="mbtn">Сбросить фильтры</span>
+            <div class="clear-filter" {% if activeColor is null %} style="display: none" {% endif %}>
+                <a href="/{{ path }}#catalog-anchor" class="mbtn">Сбросить фильтры</a>
             </div>
 
             <div class="color-filter">
@@ -10,8 +14,9 @@
                     Выбрать цвет:
                 </div>
                 <div class="color-filter_body">
+
                     {% for color in colors %}
-                        <a href="#" title="{{ color.name }}" data-color="{{ color.id }}" data-category ="{{ category }}" class="color-filter__item" style="background-color: {{ color.code }}"></a>
+                        <a href="/{{ path }}color/{{ color.slug }}#catalog-anchor" title="{{ color.name }}" data-color="{{ color.slug }}" data-category ="{{ category }}" class="color-filter__item {% if color.id == activeColor %} active-color {% endif %}" style="background-color: {{ color.code }}"></a>
                 {% endfor %}
                 </div>
             </div>
@@ -29,27 +34,31 @@
                 </div>
             </form>
         </div>
-        <div class="products">
-            {% for product in pagination %}
-                <div class="product">
-                    <a href="/{{ product.path }}" target="_blank">
-                        <img src="/uploads/products/{{ product.image }}" alt="{{ product.name }}">
-                    </a>
-                    <div class="product__name">
+        <div class="products-navigation__wrapper">
+            <div class="products">
+                {% for product in pagination %}
+                    <div class="product">
                         <a href="/{{ product.path }}" target="_blank">
-                            {{ product.name }}
+                            <img src="/uploads/products/{{ product.image }}" alt="{{ product.name }}">
                         </a>
+                        <div class="product__name">
+                            <a href="/{{ product.path }}" target="_blank">
+                                {{ product.name }}
+                            </a>
+                        </div>
+                        <div class="product__price">{{ product.price}} {{ product.measure.name }}</div>
+                        <button class="popup-button raschet">Рассчитать</button>
+                        <button class="popup-button raschet">Консультация</button>
                     </div>
-                    <div class="product__price">{{ product.price}} {{ product.measure.name }}</div>
-                    <button class="popup-button raschet">Рассчитать</button>
-                    <button class="popup-button raschet">Консультация</button>
-                </div>
-            {% endfor %}
-        </div>
-        <div class="navigation">
-            {{ knp_pagination_render(pagination) }}
+                {% endfor %}
+            </div>
+
+            <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
         </div>
     </div>
+</div>
 </div>
 
 
@@ -59,51 +68,18 @@
         let category = 0;
         let sort = 'no';
 
-      $(".color-filter__item").click(
-          function (event) {
-            event.preventDefault();
-              $(".clear-filter").css('display','flex');
-           color =  $(this).data('color');
-           category = $(this).data('category');
-           sort = $("#sortSelect option[selected = 'selected']").val();
-              if(typeof sort == "undefined"){
-                  sort = 'no';
-              }
-           $('.color-filter__item').removeClass('active-color');
-           $(this).addClass('active-color');
-              showAjaxLoader();
-           showByColor(color, category, sort);
-          }
-      );
 
       $("#sortSelect").change(
           function (event) {
                sort = $(this).val();
                $("#sortSelect option").attr('selected', false);
                $("#sortSelect option[value='"+sort+"']").attr('selected',true);
-               if($('.active-color').length > 0) {
-                   color = $('.active-color').data('color');
-               }
                category = $('.color-filter__item:first').data('category');
+               color = $('.active-color').data('color');
               showAjaxLoader();
                showBySort(color, category, sort);
           }
       );
-
-        $(".clear-filter").click(
-            function (event) {
-                $(".clear-filter").css('display','none');
-                $('.color-filter__item').removeClass('active-color');
-                category = $('.color-filter__item:first').data('category');
-                sort = $("#sortSelect option[selected = 'selected']").val();
-                if(typeof sort == "undefined"){
-                    sort = 'no';
-                }
-                showAjaxLoader();
-                showAll(category, sort);
-        })
-
-
 
     });
 
@@ -111,37 +87,22 @@
         $(".products").append('<div class="ajax_overlay" style="background-color: rgb(255, 255, 255); opacity: 0.7; width: 100%; height: 100%; position: absolute; top: 0px; left: 0px; z-index: 99999;"><div class="ajax_loader"></div></div>');
     }
 
-    function showAll(category, sort) {
-        $.ajax({
-            url: '/clear-filter/'+category+'/'+sort,
-            type: 'POST',
-            dataType: 'html',
-            data:{
-                'category': category,
-                'sort': sort,
-            },
-            success: function (response) {
-                $(".products").html(response);
-            },
-            error: function (response) {
-                console.log('error');
-            }
-        })
-    }
-
     function showBySort(color, category, sort) {
+        console.log(color);
+        console.log(category);
+        console.log(sort);
         $.ajax({
-            url: '/sort/'+category+'/'+color+'/'+sort,
+            url: window.location.pathname,
             type: 'POST',
             dataType:'html',
             data:{
-                'color': color,
-                'category': category,
                 'sort': sort,
+                'ajax': 1,
+                'color': color,
             },
 
             success: function (response) {
-                $(".products").html(response);
+                $(".products-navigation__wrapper").html(response);
             },
             error: function (response) {
                 console.log('Error');
@@ -149,24 +110,5 @@
         });
     }
 
-    function showByColor(color, category, sort){
-        $.ajax({
-            url: '/color/'+category+'/'+color+'/'+sort,
-            type: 'POST',
-            dataType:'html',
-            data:{
-                'color': color,
-                'category': category,
-                'sort': sort,
-            },
-
-            success: function (response) {
-                $(".products").html(response);
-            },
-            error: function (response) {
-                console.log('Error');
-            }
-        });
-    }
 
 </script>

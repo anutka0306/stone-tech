@@ -5064,7 +5064,7 @@ input[name=address] {
     border: none;
     outline: none;
     cursor: pointer;
-    background: #2aa5cc;
+    background: #6BAF0B;
     color: #fff;
     padding-left: 10px;
     padding-right: 10px;
@@ -5075,4 +5075,51 @@ input[name=address] {
     display: flex;
     font-size: 14px;
     align-items: center;
+}
+
+/* Пагинация в каталоге */
+.navigation{
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+.navigation .pagination{
+    justify-content: center;
+}
+.pagination span{
+    margin: 0 3px;
+}
+.pagination span.page{
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    line-height: 1.25;
+    color: #6BAF0B;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+.pagination span.previous, .pagination span.next{
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    line-height: 1.25;
+    color: #6BAF0B;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+.pagination span.first, .pagination span.last{
+    display: none;
+}
+.pagination span.current {
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    line-height: 1.25;
+    z-index: 3;
+    color: #fff;
+    background-color: #6BAF0B;
+    border-color: #6BAF0B;
+}
+#catalog-anchor{
+    margin-bottom: 100px;
+    display: block;
 }

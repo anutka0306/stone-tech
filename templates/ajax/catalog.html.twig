@@ -1,5 +1,5 @@
-
-    {% for product in products %}
+<div class="products">
+    {% for product in pagination %}
         <div class="product">
             <a href="/{{ product.path }}" target="_blank">
                 <img src="/uploads/products/{{ product.image }}" alt="{{ product.name }}">
@@ -14,5 +14,7 @@
             <button class="popup-button raschet">Консультация</button>
         </div>
     {% endfor %}
-
-
+</div>
+<div class="navigation">
+    {{ knp_pagination_render(pagination) }}
+</div>
