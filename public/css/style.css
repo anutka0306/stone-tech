@@ -5044,6 +5044,7 @@ input[name=address] {
     padding-left: 20px;
     padding-top: 20px;
     display: flex;
+    flex-wrap: wrap;
 }
 .color-filter__item{
     margin: 5px;
