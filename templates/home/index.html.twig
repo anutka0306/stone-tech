@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}{{ page.seoTitle }}{% endblock %}
+{% block description %}{{ page.seoDescription }}{% endblock %}
 
 {% block header %}
     {# header banner#}
