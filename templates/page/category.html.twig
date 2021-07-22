@@ -62,8 +62,8 @@
 
     {# Каталог #}
     {% if products is not empty %}
-        <h2>{{ category.cardTitle }} КАТАЛОГ И ЦЕНЫ:</h2>
-        {% include 'elements/catalog-block.html.twig' with {'products': products, 'category': category.categoryId.id, 'path':category.path} %}
+        <a id="catalog-anchor"></a>
+        {% include 'elements/catalog-block.html.twig' with {'products': products, 'category': category.categoryId.id, 'path':category.path, 'cardTitle': category.cardTitle} %}
     {% endif %}
 
     {# Преимущества нижние #}

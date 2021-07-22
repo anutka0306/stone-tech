@@ -161,7 +161,7 @@ class PageController extends AbstractController
             ]);
         }
 
-        return $this->render('page/category.html.twig',[
+        return $this->render('page/category_color.html.twig',[
             'category'=>$category,
             'works' => $ourWorks,
             'products' => $products,
