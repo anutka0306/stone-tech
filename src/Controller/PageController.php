@@ -150,6 +150,7 @@ class PageController extends AbstractController
         );
         $pagination->setParam('_fragment', 'catalog-anchor');
         $colors = $this->getColors($all_category_products);
+        $colorName = $this->color_repository->find($color);
         if(isset($_POST['ajax'])){
             return $this->render('ajax/catalog.html.twig',[
                 'path'=>$category->getPath(),
@@ -168,6 +169,7 @@ class PageController extends AbstractController
             'colors' => $colors,
             'pagination'=>$pagination,
             'activeColor' => $color,
+            'colorName' => $colorName->getColorPlural(),
         ]);
     }
 

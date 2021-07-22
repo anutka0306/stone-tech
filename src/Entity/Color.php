@@ -40,6 +40,11 @@ class Color
      */
     private $slug;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $color_plural;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -117,6 +122,18 @@ class Color
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getColorPlural(): ?string
+    {
+        return $this->color_plural;
+    }
+
+    public function setColorPlural(string $color_plural): self
+    {
+        $this->color_plural = $color_plural;
 
         return $this;
     }
