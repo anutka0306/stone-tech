@@ -45,9 +45,15 @@ class Color
      */
     private $color_plural;
 
+    /**
+     * @ORM\OneToMany(targetEntity=StoneProduct::class, mappedBy="color")
+     */
+    private $stones;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
+        $this->stones = new ArrayCollection();
     }
 
     public function __toString()
@@ -134,6 +140,36 @@ class Color
     public function setColorPlural(string $color_plural): self
     {
         $this->color_plural = $color_plural;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|StoneProduct[]
+     */
+    public function getStones(): Collection
+    {
+        return $this->stones;
+    }
+
+    public function addStone(StoneProduct $stone): self
+    {
+        if (!$this->stones->contains($stone)) {
+            $this->stones[] = $stone;
+            $stone->setColor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStone(StoneProduct $stone): self
+    {
+        if ($this->stones->removeElement($stone)) {
+            // set the owning side to null (unless already changed)
+            if ($stone->getColor() === $this) {
+                $stone->setColor(null);
+            }
+        }
 
         return $this;
     }

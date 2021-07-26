@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block description %}{% endblock %}
+
+{% block header %}
+    {# header banner#}
+    {% embed 'elements/header.html.twig' %}
+        {% block h1 %}
+            Каталог камня
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block body %}
+    <div class="wrapper stone-catalog__wrapper">
+        <div class="container">
+            <div class="row">
+                {% for item in items %}
+                    <div class="col-md-3">
+                        <a href="/{{ item.slug }}">
+                        <div class="catblock"><div class="imgblock" style="background: url('/images/stone/catalog/{{ item.smallImg }}')">
+
+                            </div>
+                            <div class="stone-elements__item_wrapper">
+                                <div class="txtblock">{{ item.name }}</div>
+                                {% if item.color is not null %}
+                                <div class="stone-color">Цвет: {{ item.color }}</div>
+                                {% endif %}
+                                {% if item.country is not null %}
+                                    <div class="stone-country">Страна: {{ item.country }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block description %}{% endblock %}
+
+{% block header %}
+    {# header banner#}
+    {% embed 'elements/header.html.twig' %}
+        {% block h1 %}
+            Каталог камня
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block body %}
+<div class="wrapper stone-catalog__wrapper">
+    <div class="container">
+        <div class="row">
+    {% for category in categories %}
+        <div class="col-md-4">
+            <div class="catlog">
+                <span><a href="/{{ category.slug }}">{{ category.name }}</a></span>
+            </div>
+            <div class="imges">
+                <img src="data:image/webp;base64,UklGRqgAAABXRUJQVlA4IJwAAADQBgCdASpOADwAPmkqkkWkIqGXNdBABoS0gAApRpnpUutsAvNI1naK8XgqxBDZrJSFmqO/sX39Ed4+nM5jYAAA/vrkkhSYfqSTDNsOrN0TUvBO86bXKCmFui+7LQNb/cZt5FjlHN1NVkodKKyLfpmFx290ZhByAWdcbPvKBI+ixkroGRoSd/YdaPBIuKqwIFR3iTvUdyfTHc0ZgAA=" data-pagespeed-url-hash="4026490512" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+                <img src="data:image/webp;base64,UklGRvoDAABXRUJQVlA4IO4DAAAQEACdASo8ADwAPmEokEWkIqGZ/AdUQAYEs4A7ABYFm6fEXz4gtXCbKW1GWHpHZ47vVfxQY3s5Qt40/wi5MmumqjA8Dqi33TO9mkkDkIVIdh4k8Ni/22q042/D8ejNiAx4l6hRJrfQxb7osE/voZsqnT2O7hYzpV9bblLBnuPc3r8ICn6Gd1KkAAD+62KqtCmSg+OVsHB3uH5yCaW/sQkUpJHTMt19+LLgmCi2iKKDPj3pTbcB7zlYPx623//WpkY+jF/8WGv2nmomgtGBrP/hSkVvsfaGSs/ktsflg7i12g8e8vG7O7So/UPo1KGjVpJ+rxgyqwUCZuc0cEdaMeJGncL6iXxCOgRIBnnmQoF6Ph677XnNt24AYq2WzLO27ZDoihjEIZd+91AIf4mJuFLbRESnO+R3gVo2yog5XBCHtgrbvX0zlqFeB8/53HCn8n852SkbE9GKF/Q3OE9OK3fYYvkvg6SeETJBq9+wJJh7s04XVaOODeBenwrhUeQvlw0PQKlK12fiyHRGahUj14zkYKbA65jui25E+cJj4vWattMsHC58qtlla+4T1hQGKXv7sBuphY8+NuagF1kKi95UDUy5PDsGAlg33ms+4JD/o5s6P/Tcfpcg9vnTouRkTuAz52dxr+zGQpLVzpCSlKB2rNa/xsyQrSufq+SjZjBmBSnLqCvvC8tASec4v57r+OKGAgTL8v8PP02Xneg6vlcGyc1GDiVtkqL1EBnFBidOCkYYq83aAy5WPrxt1RxXh+OVzyq/X14TJnliARsyX8vCfGqDFwqWoN5crPL8JgS+/LCRtfGrD6kj9zTkWsSfwmM52b3q9p8VH09PuIhnlPqy55Ujm1MLr6tLJt4zBCYcD9Ehd8VvHH+HZAh5dc3NIqC5DipCSmzpdaMcs5Cm+K1Ovw5bsLhbRW4TZVLN8+unJWgcZiNFoI8stYfYRxYKFp6hTnypeReorIPS12cYcqgB/N/5FvZSmf68O441F35gXsRlgz3yOBMLdQXRHwoI3fc/O8xCVdQik1sb3u2d6uiIGNYNm4Brto+/0DT9Zc1dRb8vxb/9tKm4zLQmXaz10C+4F83Q1wDazWBtl25umfuyTQA/z3jUeT4MlnsEKeBwrxMggLkH7Pp/X0vt0bChz0eWZvbIStH8L2kAt7j0n+z7kn6UgRpvgt033r3rUnJrS+tkxEx8t+M+eOTTUwVhpQsGsqJqIg9WlNPoZWg50rxlFPw+EWDmguFzftMGUwvtR0YeYZDAUJ7fQeKcz8Wjm30y5YJCfm01nmx+OCCLiR4lOKFjhYFSoG1rARgJ2YxXsFvGid15I0NVMdesAAAA" data-pagespeed-url-hash="26023137" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+                <img src="data:image/webp;base64,UklGRvoAAABXRUJQVlA4IO4AAABQCACdASo6ADwAPm02lUgkIyIhJhqpOIANiWlh4F6Ig5f94N0iImIbkj3BAvIQBsDlRWCGrCc5QIS7mkzhr5L5S+DmE26KADyecmAA/t63xFS66UgF6of+MJpJ0YTdht89tWes+s9LeEgL/y3zYHUvvX1p544qYwOVRQ0GlDaultfBUJLton9BqfTk0I4zawLwU64gxZkP8nWkwD5IMiMDMU0VXqnuE0+pzmqL0VOciTi2Dnh9/zhMdV9UuJn9EAziijQFlumcbDYYhUsRI2Ny7RliHfcVeRPqJpG1N9G0Xcfs5VXYzSg39iiKAAAA" data-pagespeed-url-hash="320523058" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+                <img src="data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAAAQBgCdASo8ADwAPm0ylUgkIqIhpBgK2IANiWkAFNMASKHN/+UUA873l1CGuVy6ULw862A/spKtHQAA/vyaglM7CQD+g+LimBzLjjCYi+8d/yLKBBoBF/V9O6mJMBh53SB00+hA6oPaB1cjVl8+OhED0AAAAA==" data-pagespeed-url-hash="615022979" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+            </div>
+            <div class="stone-catalog__item-description">
+                {{ category.description|raw }}
+            </div>
+        </div>
+
+    {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

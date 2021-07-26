@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Content;
 use App\Entity\Products;
+use App\Entity\StoneCatalog;
+use App\Entity\StoneProduct;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,6 +19,9 @@ use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use App\Repository\ProductsRepository;
 use Knp\Component\Pager\Paginator;
 use App\Repository\ColorRepository;
+use App\Repository\StoneCatalogRepository;
+use App\Repository\StoneProductRepository;
+
 
 
 class PageController extends AbstractController
@@ -38,12 +43,24 @@ class PageController extends AbstractController
      */
    protected $color_repository;
 
-   public function __construct(ContentRepository $repository, ProductsRepository $productsRepository, PaginatorInterface $paginator, ColorRepository $color_repository)
+    /**
+     * @var StoneCatalogRepository
+     */
+    protected $stoneCatalogRepository;
+
+    /**
+     * @var StoneProductRepository
+     */
+    protected $stoneProductRepository;
+
+   public function __construct(ContentRepository $repository, ProductsRepository $productsRepository, PaginatorInterface $paginator, ColorRepository $color_repository, StoneCatalogRepository $stoneCatalogRepository, StoneProductRepository $stoneProductRepository)
    {
        $this->page_repository = $repository;
        $this->products_repository = $productsRepository;
        $this->paginator = $paginator;
        $this->color_repository = $color_repository;
+       $this->stoneCatalogRepository = $stoneCatalogRepository;
+       $this->stoneProductRepository = $stoneProductRepository;
    }
 
     /**
@@ -69,12 +86,31 @@ class PageController extends AbstractController
      */
 
     public function index($token, PaginatorInterface $paginator, Request $request, EntityManagerInterface $em){
-        if(!$page = $this->products_repository->findOneBy(['path'=>$token]) AND !$page = $this->page_repository->findOneBy(['path'=>$token]) ){
+        if(!$page = $this->products_repository->findOneBy(['path'=>$token]) AND !$page = $this->page_repository->findOneBy(['path'=>$token]) AND !$page = $this->stoneCatalogRepository->findOneBy(['slug'=>$token]) AND !$page = $this->stoneProductRepository->findOneBy(['slug'=>$token])){
             throw $this->createNotFoundException(sprintf('Page %s not found', $token));
         }
 
         if($page instanceof Products){
             return $this->product($page);
+        }
+        if($page instanceof StoneCatalog){
+            $items = $this->stoneProductRepository->findAll();
+            return $this->render('stone_catalog/list.html.twig',
+                [
+                    'page' => $page,
+                    'items' => $items,
+                    ]
+            );
+        }
+
+        if($page instanceof StoneProduct){
+            $product = $this->stoneProductRepository->findOneBy(['slug' => $token]);
+            return $this->render('stone_catalog/item.html.twig',
+                [
+                    'page' => $page,
+                    'product' => $product,
+                ]
+            );
         }
 
         if($page instanceof Content) {
@@ -85,11 +121,24 @@ class PageController extends AbstractController
             if ($page->getPageType() == 'simple') {
                 return $this->simple($page);
             }
+
+            //каталог камня
+            if($page->getPageType() == 'stonecatalog'){
+                return $this->stoneCatalog($page);
+
+            }
         }
+
     }
 
 
-    
+    private function stoneCatalog($page){
+        $categories = $this->stoneCatalogRepository->findAll();
+        return $this->render('stone_catalog/index.html.twig', [
+                    'page' => $page,
+                    'categories' => $categories,
+                ]);
+    }
 
     private function simple($simple){
         return $this->render('page/simple.html.twig',[

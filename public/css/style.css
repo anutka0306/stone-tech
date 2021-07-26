@@ -4022,7 +4022,7 @@ button::-moz-focus-inner {
 }
 
 .catblock {
-	display: inline-block;
+	display: flex;
 	vertical-align: top;
 	position: relative;
 	width: 250px;
@@ -4034,15 +4034,9 @@ button::-moz-focus-inner {
 .catblock .imgblock {
 	width: 60px;
     height: 100%;
-    position: absolute;
-    display: inline-block;
 }
 .catblock .txtblock {
-	display: inline-block;
-    position: absolute;
-    padding-left: 80px;
-    padding-right: 20px;
-    padding-top: 10px;
+
 }
 
 
@@ -5123,4 +5117,29 @@ input[name=address] {
 #catalog-anchor{
     margin-bottom: 100px;
     display: block;
+}
+
+/*Каталог камня*/
+.catlog {
+    width: 90%;
+    margin: 10px 0;
+    background-color: gray;
+    color: #fff;
+    padding: 5px 0;
+    text-align: center;
+}
+.stone-catalog__wrapper .imges{
+    text-align: center;
+}
+.stone-catalog__wrapper .stone-catalog__item-description{
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    margin-top: 20px;
+}
+.stone-elements__item_wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-left: 20px;
 }

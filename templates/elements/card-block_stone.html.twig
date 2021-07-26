@@ -1,0 +1,43 @@
+<div>
+    <div>
+
+        <div class="catalog">
+            <div class="wrapper">
+                <div class="items">
+                    <div class="item item-1">
+                        {% block cardImage %}
+                            <img class="alignnone size-medium" src="/images/stone/big/{{ product.bigImg }}" width="580" height="580"><br>
+                            <br><img class="mob-img" src="/images/stone/big/{{ product.bigImg }}">
+                        {% endblock %}
+                    </div>
+                    <div class="item item-2">
+                        <h3>
+                            {% block cardTitle %}
+                            {{product.name}}
+                            {% endblock %}
+                        </h3>
+                        <div class="text">
+                            {% block cardDescription %}
+                                <div><span>Материал:</span> {{ product.parent.name }}</div>
+                                <div><span>Цвет:</span> {{ product.color }}</div>
+                                <div><span>Страна:</span> {{ product.country }}</div>
+                                <div><span>Вес:</span> {{ product.weight }} кг/м3</div>
+                                <div><span>Размер:</span> подбирается индивидуально.</div>
+                                <div><span>Выезд и замер:</span> бесплатный при оформлении заказа и 100% оплате.</div>
+                                <div><span>Доставка:</span> Осуществляется по Москве и области.</div>
+                            {% endblock %}
+                        </div>
+
+                        <div class="line "></div>
+
+                        <div style="display: flex">
+                            <button class="popup-button raschet">Выбрать изделие</button>
+                            <button class="popup-button raschet">Консультация</button>
+                        </div></div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

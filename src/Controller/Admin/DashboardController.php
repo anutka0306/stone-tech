@@ -4,7 +4,10 @@ namespace App\Controller\Admin;
 
 use App\Entity\Category;
 use App\Entity\Color;
+use App\Entity\Country;
 use App\Entity\Products;
+use App\Entity\StoneCatalog;
+use App\Entity\StoneProduct;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -42,6 +45,11 @@ class DashboardController extends AbstractDashboardController
                 MenuItem::linkToCrud('Категории', 'fas fa-list', Category::class),
                 MenuItem::linkToCrud('Товары', 'fas fa-cookie', Products::class),
                 MenuItem::linkToCrud('Цвета', 'fas fa-brush', Color::class),
+            ]),
+            MenuItem::subMenu('Каталог камня', 'fas fa-cookie')->setSubItems([
+                MenuItem::linkToCrud('Категории', 'fas fa-list', StoneCatalog::class),
+                MenuItem::linkToCrud('Камень', 'fas fa-cookie', StoneProduct::class),
+                MenuItem::linkToCrud('Страна', 'fas fa-list', Country::class),
             ]),
         ];
 
