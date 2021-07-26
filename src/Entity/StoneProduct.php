@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\StoneProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -11,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class StoneProduct
 {
+    const IMAGES_PATH = 'images/samples';
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -58,6 +61,16 @@ class StoneProduct
      * @ORM\ManyToOne(targetEntity=Country::class, inversedBy="stones")
      */
     private $country;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Attachment::class, mappedBy="stone", cascade={"persist"})
+     */
+    private $attachments;
+
+    public function __construct()
+    {
+        $this->attachments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -156,6 +169,37 @@ class StoneProduct
     public function setCountry(?Country $country): self
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Attachment[]
+     */
+    public function getAttachments(): Collection
+    {
+        return $this->attachments;
+    }
+
+    public function addAttachment(Attachment $attachment): self
+    {
+        if (!$this->attachments->contains($attachment)) {
+            $this->attachments[] = $attachment;
+            $attachment->setStone($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAttachment(Attachment $attachment): self
+    {
+        if ($this->attachments->removeElement($attachment)) {
+            // set the owning side to null (unless already changed)
+            if ($attachment->getStone() === $this) {
+                $attachment->setStone(null);
+                unlink(self::IMAGES_PATH.'/'.$this->getId().'/'.$attachment->getImage());
+            }
+        }
 
         return $this;
     }

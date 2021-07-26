@@ -3,12 +3,19 @@
 namespace App\Controller\Admin;
 
 use App\Entity\StoneProduct;
+use App\Form\AttachmentType;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use PhpParser\Node\Scalar\MagicConst\File;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use Vich\UploaderBundle\Form\Type\VichFileType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class StoneProductCrudController extends AbstractCrudController
 {
@@ -17,9 +24,22 @@ class StoneProductCrudController extends AbstractCrudController
         return StoneProduct::class;
     }
 
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions->add(Crud::PAGE_NEW, Action::SAVE_AND_CONTINUE)
+            ->update(Crud::PAGE_NEW, Action::SAVE_AND_CONTINUE, function (Action $action) {
+                return $action->setIcon('fa fa-file-alt')->setLabel('Сохранить и загрузить картинки');
+            });
+    }
+
 
     public function configureFields(string $pageName): iterable
     {
+        $entityId = null;
+        if(isset($_GET['entityId'])){
+            $entityId = $_GET['entityId'];
+        }
+
         return [
             TextField::new('name'),
             TextField::new('slug'),
@@ -29,6 +49,7 @@ class StoneProductCrudController extends AbstractCrudController
             AssociationField::new('parent'),
             AssociationField::new('color'),
             AssociationField::new('country'),
+            CollectionField::new('attachments')->setEntryType(AttachmentType::class)->onlyWhenUpdating(),
         ];
     }
 
