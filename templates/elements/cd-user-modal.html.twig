@@ -1,6 +1,53 @@
 <div class="cd-user-modal"> <!-- this is the entire modal form, including the background -->
     <div class="cd-user-modal-container"> <!-- this is the container wrapper -->
 
+        <div id="cd-choise"> <!-- log in form -->
+            <form class="cd-form" method="POST">
+                <input id="address" type="text" name="address" value="">
+                <input type="hidden" name="form-name" value="zvonok">
+                <div class="check_mark" style="display: none">
+                    <div class="sa-icon sa-success animate">
+                        <span class="sa-line sa-tip animateSuccessTip"></span>
+                        <span class="sa-line sa-long animateSuccessLong"></span>
+                        <div class="sa-placeholder"></div>
+                        <div class="sa-fix"></div>
+                    </div>
+                    <p class="text-success">Спасибо, отправлено!</p>
+                </div>
+                <div class="form-body">
+                    <input type="hidden" name="form-name" value="zvonok">
+                    <span class="sspan">Выберите изделие:</span>
+
+                    <p class="fieldset">
+                        <label class="image-replace cd-name" for="client-name">Ваше имя:</label>
+                        <input class="full-width has-padding has-border" id="form-name" name="client-name" type="name" placeholder="Ваше имя" required>
+                    </p>
+
+                    <p class="fieldset">
+                        <label class="image-replace cd-phone" for="signin-email">Телефон</label>
+                        <input class="full-width has-padding has-border" id="form-phone" name="phone" type="phone" placeholder="Телефон" required>
+                    </p>
+
+                    <p class="fieldset">
+                        <label class="image-replace cd-phone" for="product-select">Выберите изделие</label>
+                        <select class="full-width has-padding has-border">
+                            <option disabled selected>Выберите изделие</option>
+                            <option value="1">Подоконники</option>
+                            <option value="2">Столешницы</option>
+                            <option value="3">Ступени</option>
+                            <option value="4">Лестницы</option>
+                            <option value="5">Камины</option>
+                        </select>
+                    </p>
+
+                    <p class="fieldset">
+                        <button class="full-width form-submit">ОТПРАВИТЬ</button>
+                    </p>
+                </div>
+            </form>
+        </div> <!-- cd-login -->
+
+
         <div id="cd-zvonok"> <!-- log in form -->
             <form class="cd-form" method="POST">
                 <input id="address" type="text" name="address" value="">

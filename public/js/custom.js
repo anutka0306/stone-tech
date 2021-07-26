@@ -19,6 +19,7 @@ $(".gallery").imagesGrid({
 
 
 $('.items .popup-button').addClass('raschet');
+$('.items .popup-button1').addClass('choise');
 $('input[type=phone]').attr('name', 'form-phone');
 var thisuri = "http://st-wp/";
 jQuery(document).ready(function($){
@@ -41,6 +42,7 @@ jQuery(document).ready(function($){
     var formModal = $('.cd-user-modal'),
         formZvonok = formModal.find('#cd-zvonok'),
         formRaschet = formModal.find('#cd-raschet'),
+        formChoise = formModal.find('#cd-choise'),
         formBottom = $('#cd-bottom'),
         mainNav = $('body');
 
@@ -51,6 +53,7 @@ jQuery(document).ready(function($){
 
     mainNav.on('click', '.zvonok', zvonok_selected);
     mainNav.on('click', '.raschet', raschet_selected);
+    mainNav.on('click', '.choise', choise_selected);
 
     //close modal
     formModal.on('click', function(event){
@@ -67,9 +70,19 @@ jQuery(document).ready(function($){
         }
     });
 
+    function choise_selected(){
+        formModal.addClass('is-visible');
+        formRaschet.removeClass('is-selected');
+        formZvonok.removeClass('is-selected');
+        formChoise.addClass('is-selected');
+        $('html').css('overflow-y', 'hidden');
+
+    }
+
     function zvonok_selected(){
         formModal.addClass('is-visible');
         formRaschet.removeClass('is-selected');
+        formChoise.removeClass('is-selected');
         formZvonok.addClass('is-selected');
         $('html').css('overflow-y', 'hidden');
     }
@@ -80,6 +93,7 @@ jQuery(document).ready(function($){
         formModal.addClass('is-visible');
         formZvonok.removeClass('is-selected');
         formRaschet.addClass('is-selected');
+        formChoise.removeClass('is-selected');
         $('html').css('overflow-y', 'hidden');
         cart_text = $(this).parent().parent().parent().find('h3').text();
     }
