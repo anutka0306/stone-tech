@@ -98,7 +98,6 @@ jQuery(document).ready(function($){
         cart_text = $(this).parent().parent().parent().find('h3').text();
     }
 
-
     formRaschet.find('.form-submit').on('click', function(event){
         event.preventDefault();
 
@@ -127,7 +126,8 @@ jQuery(document).ready(function($){
                 $('.checkbox-js-style').remove();
                 $(agreement).next('label').append('<style class="checkbox-js-style">#cd-raschet .checkbox-custom + .checkbox-custom-label:before{ border-color: #d2d8d8; }</style>');
             }
-        } else {
+        }
+        else {
             $(form_phone).css('border-color', '#d2d8d8');
             $(form_name).css('border-color', '#d2d8d8');
 
@@ -139,6 +139,57 @@ jQuery(document).ready(function($){
                     cart_text: cart_text,
                     thisuri: thisuri
                 },
+                success: function(response) {
+                    if (response !== 'ERROR') {
+                        console.log(response);
+                        $(form).find('.form-body').hide();
+                        $(form).find('.check_mark').show();
+                    }
+                }
+            });
+        }
+    });
+
+
+    formChoise.find('.form-submit').on('click', function(event){
+        event.preventDefault();
+
+        var form = $(this).closest('form');
+        var form_phone = $(form).find('input[name=form-phone]');
+        var form_name = $(form).find('input[name=client-name]');
+        var agreement = $(form).find('input[name=agreement]');
+
+        if (!$(form_phone).val() || !$(form_name).val() || agreement.prop('checked') === false) {
+            if(!$(form_phone).val()) {
+                $(form_phone).css('border-color', 'red');
+            } else {
+                $(form_phone).css('border-color', '#d2d8d8');
+            }
+
+            if(!$(form_name).val()) {
+                $(form_name).css('border-color', 'red');
+            } else {
+                $(form_name).css('border-color', '#d2d8d8');
+            }
+
+            if (agreement.prop('checked') === false) {
+                $('.checkbox-js-style').remove();
+                $(agreement).next('label').append('<style class="checkbox-js-style">#cd-raschet .checkbox-custom + .checkbox-custom-label:before{ border-color: red; }</style>');
+            } else {
+                $('.checkbox-js-style').remove();
+                $(agreement).next('label').append('<style class="checkbox-js-style">#cd-raschet .checkbox-custom + .checkbox-custom-label:before{ border-color: #d2d8d8; }</style>');
+            }
+        }
+        else {
+            $(form_phone).css('border-color', '#d2d8d8');
+            $(form_name).css('border-color', '#d2d8d8');
+
+            $.ajax({
+                type: 'post',
+                url: '/callback_form',
+                data:
+                    $(form).serialize()
+                ,
                 success: function(response) {
                     if (response !== 'ERROR') {
                         console.log(response);
