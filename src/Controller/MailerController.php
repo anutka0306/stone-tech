@@ -24,98 +24,57 @@ class MailerController extends AbstractController
     }
 
     /**
-     * @Route("/contact_form", name="contact_form")
+     * @Route("/raschet_form", name="raschet_form")
      */
-    public function contact_form(Request $request, MailerInterface $mailer)
+    public function raschet_form(Request $request, MailerInterface $mailer)
     {
-        $to = explode(',',$this->getTo($request->get('salon')) );
-        $errors = array();
-        $userName ='';
-        $userEmail = '';
-        $userPhone = '';
-        if(!$this->addEmail($request->get('user_email_contact'), $this->validatorInterface)){
-            $errors[] = 'Некорректный E-mail адрес';
-        }
-        if (!$this->addName($request->get('user_name_contact'), $this->validatorInterface)){
-            $errors[] = 'Имя должно содержать не меньше 2-х символов. Может содержать только русские буквы.';
-        }
-        if(!$this->addPhone($request->get('user_phone_contact'), $this->validatorInterface)){
-            $errors[] = 'Некорректный номер телефона';
-        }
-        else{
-            $userEmail = $request->get('user_email_contact');
-            $userName = $request->get('user_name_contact');
-            $userPhone = $request->get('user_phone_contact');
 
+        $to = array('anya-programmist@qmotors.ru');
+        foreach ($to as $recipient){
+            $email = (new Email())
+                ->from('robot@mirakpp.ru')
+                ->to((string)$recipient)
+                ->subject('Новая заявка на расчет с сайта Stone-tech.ru')
+                ->html('<p>Новая заявка на расчет с сайта Stone-tech.ru</p>
+             <p>Имя отправителя: ' . $request->get('client-name') . '</p>
+            <p>Телефон отправителя: ' . $request->get('form-phone') . '</p>
+            '
+                );
+            $mailer->send($email);
         }
-        if(0 === count($errors)) {
+
+        return new JsonResponse(['success'=>'<p>Спасибо! Ваша заявка отправлена.</p>']);
+
+    }
+
+
+    /**
+     * @Route("/application", name="application_form")
+     */
+    public function application(Request $request, MailerInterface $mailer)
+    {
+        // $to = explode(',',$this->getTo($request->get('salon')) );
+        $to = array('anya-programmist@qmotors.ru');
+
+            $userName = $request->get('name');
+            $userPhone = $request->get('telephone');
+
 
             foreach ($to as $recipient){
                 $email = (new Email())
                     ->from('robot@mirakpp.ru')
                     ->to($recipient)
-                    ->subject('Новое сообщение с сайта mirakpp.ru')
-                    ->html('<p>Сообщение со страницы контакты:</p>
+                    ->subject('Сообщение с формы Задать вопрос Stone-tech.ru')
+                    ->html('<p>Сообщение с формы Задать вопрос Stone-tech.ru:</p>
                      <p>Имя отправителя: ' . $userName . '</p>
-                    <p>E-mail отправителя: ' . $userEmail . '</p>
-                    <p>Телефон отправителя: ' . $userPhone . '</p>
-                    <p>Салон: ' . $request->get('salon_contact') . '</p>
-                    <p>Сообщение: ' . $request->get('comment_contact') . '</p>'
+                    <p>Телефон отправителя: ' . $userPhone . '</p>'
                     );
                 $mailer->send($email);
             }
 
 
             return new JsonResponse(['success'=>'<p>Спасибо! Ваше сообщение отправлено.</p>']);
-        }else{
-            return new JsonResponse(['errors'=>$errors]);
-        }
 
-    }
-
-
-    /**
-     * @Route("/vakancy_form", name="vakancy_form")
-     */
-    public function vakancy_form(Request $request, MailerInterface $mailer)
-    {
-        $errors = array();
-        $userName ='';
-        $userEmail = '';
-        $userPhone = '';
-        if(!$this->addEmail($request->get('user_email_contact'), $this->validatorInterface)){
-            $errors[] = 'Некорректный E-mail адрес';
-        }
-        if (!$this->addName($request->get('user_name_contact'), $this->validatorInterface)){
-            $errors[] = 'Имя должно содержать не меньше 2-х символов. Может содержать только русские буквы.';
-        }
-        if(!$this->addPhone($request->get('user_phone_contact'), $this->validatorInterface)){
-            $errors[] = 'Некорректный номер телефона';
-        }
-        else{
-            $userEmail = $request->get('user_email_contact');
-            $userName = $request->get('user_name_contact');
-            $userPhone = $request->get('user_phone_contact');
-
-        }
-        if(0 === count($errors)) {
-            $email = (new Email())
-                ->from('robot@mirakpp.ru') //otklik@qmotors.ru
-                ->to('2hr@qmotors.ru')   //2hr@qmotors.ru
-                ->subject('Отклик на вакансию с сайта mirakpp.ru')
-                ->html('<p>Отклик на вакансию:</p>
-             <p>Имя отправителя: ' . $userName . '</p>
-<p>E-mail отправителя: ' . $userEmail . '</p>
-<p>Телефон отправителя: ' . $userPhone . '</p>
-<p>Салон: ' . $request->get('salon_contact') . '</p>
-<p>Сообщение: ' . $request->get('comment_contact') . '</p>'
-                );
-            $mailer->send($email);
-
-            return new JsonResponse(['success'=>'<p>Спасибо! Ваше сообщение отправлено.</p>']);
-        }else{
-            return new JsonResponse(['errors'=>$errors]);
-        }
 
     }
 
@@ -123,7 +82,9 @@ class MailerController extends AbstractController
      * @Route("/callback_form", name="callback_form")
      */
     public function callback_form(Request $request, MailerInterface $mailer){
-        $to = explode(',',$this->getTo($request->get('salon')) );
+        //$to = explode(',',$this->getTo($request->get('salon')) );
+        $to = array('anya-programmist@qmotors.ru');
+        $productType = $this->getProduct($request->get('form-product'));
         foreach ($to as $recipient){
             $email = (new Email())
                 ->from('robot@mirakpp.ru')
@@ -131,7 +92,9 @@ class MailerController extends AbstractController
                 ->subject('Новая заявка с сайта Stone-tech.ru')
                 ->html('<p>Новая заявка с сайта Stone-tech.ru</p>
              <p>Имя отправителя: ' . $request->get('client-name') . '</p>
-            <p>Телефон отправителя: ' . $request->get('form-phone') . '</p>'
+            <p>Телефон отправителя: ' . $request->get('form-phone') . '</p>
+            <p>Выбранное изделие:' .$productType.' </p>
+            '
                 );
             $mailer->send($email);
         }
@@ -190,20 +153,21 @@ class MailerController extends AbstractController
         }
     }
 
-    public function getTo($salon){
-        switch ($salon) {
-            case 'Научный':
-                return 'anya-programmist@qmotors.ru, webmaster@qmotors.ru, service@tokyogarage.ru, direktor@tokyogarage.ru, master@tokyogarage.ru,kostin@qmotors.ru';
-            case 'Лобненская':
-                return 'info@mirakpp.ru, maxima-x@yandex.ru, service@qmotors.ru, direktor@qmotors.ru, webmaster@qmotors.ru, w.ww@mail.ru,kostin@qmotors.ru,kostin@qmotors.ru';
-            case 'Севастопольский':
-                return 'webmaster@qmotors.ru,service@rovercity.ru,master@rovercity.ru,direktor@rovercity.ru,kostin@qmotors.ru';
-            case 'Нижегородка':
-                return 'webmaster@qmotors.ru,5service@qmotors.ru,5direktor@qmotors.ru,5master@qmotors.ru,kostin@qmotors.ru';
-            case 'Удальцова':
-                return '2direktor@qmotors.ru,2service@qmotors.ru,2master@qmotors.ru,webmaster@qmotors.ru,kostin@qmotors.ru';
+
+    public function getProduct($product){
+        switch ($product){
+            case 1:
+                return 'Подоконники';
+            case 2:
+                return 'Столешницы';
+            case 3:
+                return 'Ступени';
+            case 4:
+                return 'Лестницы';
+            case 5:
+                return 'Камины';
             default:
-                return 'anya-programmist@qmotors.ru, robot@my-side.online';
+                return 'Изделие не выбрано';
         }
     }
 

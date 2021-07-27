@@ -44,6 +44,7 @@ jQuery(document).ready(function($){
         formRaschet = formModal.find('#cd-raschet'),
         formChoise = formModal.find('#cd-choise'),
         formBottom = $('#cd-bottom'),
+        formApplication = $('#application'),
         mainNav = $('body');
 
     //open modal
@@ -98,6 +99,49 @@ jQuery(document).ready(function($){
         cart_text = $(this).parent().parent().parent().find('h3').text();
     }
 
+    formApplication.find('.applicationButton').on('click', function(event){
+        event.preventDefault();
+
+        var form = $(this).closest('form');
+        var form_phone = $(form).find('input[name=telephone]');
+        var form_name = $(form).find('input[name=name]');
+
+
+        if (!$(form_phone).val() || !$(form_name).val() ) {
+            if(!$(form_phone).val()) {
+                $(form_phone).css('border-color', 'red');
+            } else {
+                $(form_phone).css('border-color', '#d2d8d8');
+            }
+
+            if(!$(form_name).val()) {
+                $(form_name).css('border-color', 'red');
+            } else {
+                $(form_name).css('border-color', '#d2d8d8');
+            }
+
+        }
+        else {
+            $(form_phone).css('border-color', '#d2d8d8');
+            $(form_name).css('border-color', '#d2d8d8');
+
+            $.ajax({
+                type: 'post',
+                url: '/application',
+                data:
+                    $(form).serialize()
+                ,
+                success: function(response) {
+                    if (response !== 'ERROR') {
+                        console.log(response);
+                        $('.successSendForm').text('Ваша заявка отправлена!');
+                        $('.successSendForm').css('display','block');
+                    }
+                }
+            });
+        }
+    });
+
     formRaschet.find('.form-submit').on('click', function(event){
         event.preventDefault();
 
@@ -133,12 +177,10 @@ jQuery(document).ready(function($){
 
             $.ajax({
                 type: 'post',
-                url: '/formchecker.php',
-                data: {
-                    form: $(form).serialize(),
-                    cart_text: cart_text,
-                    thisuri: thisuri
-                },
+                url: '/raschet_form',
+                    data:
+                        $(form).serialize()
+                ,
                 success: function(response) {
                     if (response !== 'ERROR') {
                         console.log(response);
@@ -234,7 +276,7 @@ jQuery(document).ready(function($){
 
             $.ajax({
                 type: 'post',
-                url: '/formchecker.php',
+                url: '/raschet_form',
                 data: $(form).serialize(),
                 success: function(response) {
                     if (response !== 'ERROR') {
