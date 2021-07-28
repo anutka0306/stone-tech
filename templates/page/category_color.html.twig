@@ -27,7 +27,8 @@
     {# Каталог #}
     {% if products is not empty %}
         <a id="catalog-anchor"></a>
-        {% include 'elements/catalog-block.html.twig' with {'products': products, 'category': category.categoryId.id, 'path':category.path, 'cardTitle': category.cardTitle} %}
+        {% set h1 = category.name ~ ' ' ~ colorName %}
+        {% include 'elements/catalog-block.html.twig' with {'products': products, 'category': category.categoryId.id, 'path':category.path, 'cardTitle': h1 } %}
     {% endif %}
 
 
