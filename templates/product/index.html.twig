@@ -20,8 +20,13 @@
     {# Карточка #}
     {% embed 'elements/category_card.html.twig' %}
         {% block cardImage %}
+            {% if product.bigImg is not null %}
             <img class="alignnone size-medium" src="/uploads/products/big{{ asset(product.bigImg) }}" width="580" height="580"><br>
             <br><img class="mob-img" src="/uploads/products/big{{ asset(product.bigImg) }}">
+            {% else %}
+                <img class="alignnone size-medium" src="/uploads/products{{ asset(product.image) }}" width="580" height="580"><br>
+                <br><img class="mob-img" src="/uploads/products{{ asset(product.image) }}">
+            {% endif %}
 
         {% endblock %}
 
