@@ -81,7 +81,7 @@ class ContentCrudController extends AbstractCrudController
             BooleanField::new('top_menu', 'Отображать в верхнем меню')->hideOnIndex(),
             BooleanField::new('index_menu', 'Отображать в меню на главной')->hideOnIndex(),
             ImageField::new('thumb_img', 'Картинка для меню на главной')->setUploadDir('/public/uploads/thumbs')->setBasePath('/uploads/thumbs/')->hideOnIndex(),
-            DateTimeField::new('updated')->setValue(date('d.m.Y - H-i-s'))->hideOnIndex(),
+           /* DateTimeField::new('updated')->setValue(date('d.m.Y - H-i-s'))->hideOnIndex(),*/
 
         ];
     }
