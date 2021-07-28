@@ -16,6 +16,11 @@
 {% block body %}
     {{ breadcrumbs(category) }}
     {{ render(controller('App\\Widget\\Rating::show')) }}
+    {% embed 'elements/advantages.html.twig' %}
+        {% block keyword %}
+            {{ category.name|lower }}
+        {% endblock %}
+    {% endembed %}
 
 
 
