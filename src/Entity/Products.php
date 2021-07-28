@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=ProductsRepository::class)
+ * @ORM\EntityListeners({"App\Doctrine\GenerateUrlByProduct"})
  */
 class Products
 {

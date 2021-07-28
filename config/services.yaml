@@ -33,4 +33,6 @@ services:
         tags: [ doctrine.orm.entity_listener ]
     App\Doctrine\GenerateUrlByNewStoneProduct:
         tags: [ doctrine.orm.entity_listener ]
+    App\Doctrine\GenerateUrlByProduct:
+            tags: [ doctrine.orm.entity_listener ]
 

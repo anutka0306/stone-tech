@@ -134,7 +134,7 @@ class Content
     private $menu_order;
 
     /**
-     * @ORM\OneToOne(targetEntity=Category::class, inversedBy="content", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="content", cascade={"persist", "remove"})
      */
     private $category_id;
 
@@ -382,4 +382,5 @@ class Content
 
         return $this;
     }
+
 }

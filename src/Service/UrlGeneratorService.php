@@ -3,8 +3,10 @@
 
 namespace App\Service;
 
+use App\Entity\Products;
 use App\Entity\StoneCatalog;
 use App\Entity\StoneProduct;
+use App\Repository\ContentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 class UrlGeneratorService
@@ -14,10 +16,17 @@ class UrlGeneratorService
      */
     protected $em;
 
+    /**
+     * @var ContentRepository
+     */
+    protected $contentRepository;
+
     public function __construct(
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        ContentRepository $contentRepository
     ){
        $this->em = $em;
+       $this->contentRepository = $contentRepository;
         $connection = $this->em->getConnection();
     }
 
@@ -33,5 +42,13 @@ class UrlGeneratorService
         $this->em->flush();
 
     }
+
+    public function generateUrlByProduct(Products $products){
+
+        $itemPath = $products->setPath($products->getPath().'/');
+        $this->em->persist($itemPath);
+        $this->em->flush();
+    }
+
 
 }
