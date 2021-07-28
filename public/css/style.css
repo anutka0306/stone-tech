@@ -5147,3 +5147,12 @@ input[name=address] {
     justify-content: flex-start;
     padding-left: 20px;
 }
+.stone-thumbs__wrapper{
+    display: flex;
+    justify-content: flex-start;
+}
+.stone-thumb{
+    width: 60px;
+    height: 60px;
+    background-size: cover;
+}

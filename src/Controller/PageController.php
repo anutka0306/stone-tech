@@ -134,6 +134,10 @@ class PageController extends AbstractController
 
     private function stoneCatalog($page){
         $categories = $this->stoneCatalogRepository->findAll();
+        foreach ($categories as $category){
+            $images_thumb = $this->stoneProductRepository->findBy(['parent' => $category->getId()],[],4);
+            $category->thumbs = $images_thumb;
+        }
         return $this->render('stone_catalog/index.html.twig', [
                     'page' => $page,
                     'categories' => $categories,
