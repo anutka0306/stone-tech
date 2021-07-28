@@ -32,6 +32,7 @@ class ProductsCrudController extends AbstractCrudController
             NumberField::new('price', 'Цена'),
             AssociationField::new('measure', 'Цена за')->hideOnIndex(),
             ImageField::new('image', 'Картинка товара')->setUploadDir('/public/uploads/products')->setBasePath('/uploads/products/'),
+            ImageField::new('big_img', 'Картинка товара большая')->setUploadDir('/public/uploads/products/big')->setBasePath('/uploads/products/big/'),
             TextField::new('metaTitle','Title'),
             TextField::new('meta_description', 'Meta описание')->hideOnIndex(),
             TextEditorField::new('cardText', 'Текст карточки')->hideOnIndex(),

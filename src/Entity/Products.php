@@ -70,6 +70,11 @@ class Products
      */
     private $measure;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $big_img;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -191,6 +196,18 @@ class Products
     public function setMeasure(?Measure $measure): self
     {
         $this->measure = $measure;
+
+        return $this;
+    }
+
+    public function getBigImg(): ?string
+    {
+        return $this->big_img;
+    }
+
+    public function setBigImg(?string $big_img): self
+    {
+        $this->big_img = $big_img;
 
         return $this;
     }
