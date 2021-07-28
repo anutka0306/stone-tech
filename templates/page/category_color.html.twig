@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block body %}
-
+    {{ breadcrumbs(category) }}
     {{ render(controller('App\\Widget\\Rating::show')) }}
 
 

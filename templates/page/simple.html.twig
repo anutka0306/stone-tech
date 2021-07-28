@@ -14,6 +14,7 @@
 {% endblock %}
 
 {% block body %}
+    {{ breadcrumbs(page) }}
     {% if page.seoText is not empty %}
         {{ include('elements/simple-seo-text.html.twig') }}
     {% endif %}

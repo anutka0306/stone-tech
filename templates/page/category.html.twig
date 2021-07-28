@@ -14,6 +14,7 @@
 {% endblock %}
 
 {% block body %}
+    {{ breadcrumbs(category) }}
 
     {{ render(controller('App\\Widget\\Rating::show')) }}
 
@@ -22,7 +23,6 @@
             {{ category.name|lower }}
         {% endblock %}
     {% endembed %}
-
     {# Карточка #}
 
     {% if category.cardTitle is not null and category.cardDescription is not null%}
