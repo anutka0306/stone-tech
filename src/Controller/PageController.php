@@ -161,6 +161,7 @@ class PageController extends AbstractController
         );
         $pagination->setParam('_fragment', 'catalog-anchor');
         $colors = $this->getColors($products);
+        $min_price = $this->products_repository->findOneBy(['category_id' =>$category->getCategoryId()], ['price'=>'ASC']);
 
         if(isset($_POST['ajax'])){
             return $this->render('ajax/catalog.html.twig',[
@@ -180,6 +181,7 @@ class PageController extends AbstractController
             'colors' => $colors,
             'pagination'=>$pagination,
             'activeColor' => null,
+            'minPrice' => $min_price,
         ]);
     }
 

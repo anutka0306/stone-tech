@@ -45,7 +45,11 @@
             {% endblock %}
 
             {% block cardPrice %}
+                {% if minPrice is not null %}
+                {{ minPrice.price }}
+                {% else %}
                 {{ category.cardPrice }}
+                {% endif %}
             {% endblock %}
 
             {% block cardMeasure %}
