@@ -94,7 +94,7 @@ class PageController extends AbstractController
             return $this->product($page);
         }
         if($page instanceof StoneCatalog){
-            $items = $this->stoneProductRepository->findAll();
+            $items = $this->stoneProductRepository->findBy(['parent' => $page->getId()]);
             return $this->render('stone_catalog/list.html.twig',
                 [
                     'page' => $page,
