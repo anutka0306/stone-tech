@@ -61,6 +61,7 @@ jQuery(document).ready(function($){
         if( $(event.target).is(formModal) || $(event.target).is('.cd-close-form') ) {
             formModal.removeClass('is-visible');
             $('html').css('overflow-y', 'auto');
+            $('.cd-close-form').css('display','none');
         }
     });
 
@@ -68,10 +69,12 @@ jQuery(document).ready(function($){
     $(document).keyup(function(event){
         if(event.which=='27'){
             formModal.removeClass('is-visible');
+            $('.cd-close-form').css('display','none');
         }
     });
 
     function choise_selected(){
+        $('.cd-close-form').css('display','block');
         formModal.addClass('is-visible');
         formRaschet.removeClass('is-selected');
         formZvonok.removeClass('is-selected');
@@ -81,6 +84,7 @@ jQuery(document).ready(function($){
     }
 
     function zvonok_selected(){
+        $('.cd-close-form').css('display','block');
         formModal.addClass('is-visible');
         formRaschet.removeClass('is-selected');
         formChoise.removeClass('is-selected');
@@ -91,6 +95,7 @@ jQuery(document).ready(function($){
     var cart_text;
 
     function raschet_selected(){
+        $('.cd-close-form').css('display','block');
         formModal.addClass('is-visible');
         formZvonok.removeClass('is-selected');
         formRaschet.addClass('is-selected');

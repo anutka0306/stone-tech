@@ -29,7 +29,7 @@ class MailerController extends AbstractController
     public function raschet_form(Request $request, MailerInterface $mailer)
     {
 
-        $to = array('anya-programmist@qmotors.ru');
+        $to = array('anya-programmist@qmotors.ru, 89853148967@mail.ru, info@stone-tech.ru, bespalov@stone-tech.ru');
         foreach ($to as $recipient){
             $email = (new Email())
                 ->from('robot@mirakpp.ru')
@@ -54,7 +54,7 @@ class MailerController extends AbstractController
     public function application(Request $request, MailerInterface $mailer)
     {
         // $to = explode(',',$this->getTo($request->get('salon')) );
-        $to = array('anya-programmist@qmotors.ru');
+        $to = array('anya-programmist@qmotors.ru, 89853148967@mail.ru, info@stone-tech.ru, bespalov@stone-tech.ru');
 
             $userName = $request->get('name');
             $userPhone = $request->get('telephone');
@@ -83,7 +83,7 @@ class MailerController extends AbstractController
      */
     public function callback_form(Request $request, MailerInterface $mailer){
         //$to = explode(',',$this->getTo($request->get('salon')) );
-        $to = array('anya-programmist@qmotors.ru');
+        $to = array('anya-programmist@qmotors.ru, 89853148967@mail.ru, info@stone-tech.ru, bespalov@stone-tech.ru');
         $productType = $this->getProduct($request->get('form-product'));
         foreach ($to as $recipient){
             $email = (new Email())
