@@ -21,6 +21,7 @@
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
             <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css"/>
             <link rel="stylesheet" type="text/css" href="{{ asset('slick/slick.css') }}"/>
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/whatsapp/whatsapp.css') }}"/>
 
             <!-- Подключение FONTAWESOME-->
 
@@ -85,7 +86,14 @@
                 <a href="#" class="scrollup">Наверх</a>
             {% endblock %}
 
-
+            <a class="wapopup" target="_blank" href="https://wa.me/79857600280?text=Прошу%20оценить%20стоимость" data-href="whatsapp">
+                <div class="wapopup__content"><img src="/css/whatsapp/whatsapp.svg" alt="" data-pagespeed-url-hash="3160325871" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+                    <div class="wapopup__content__text">
+                        <div>Оцените стоимость</div>
+                        <div><span>по WhatsApp</span></div>
+                    </div>
+                </div>
+            </a>
     </body>
 
 {% block javascriptBottom %}
