@@ -32,7 +32,7 @@ class MailerController extends AbstractController
         $to = array('anya-programmist@qmotors.ru', '89853148967@mail.ru', 'info@stone-tech.ru', 'bespalov@stone-tech.ru');
         foreach ($to as $recipient){
             $email = (new Email())
-                ->from('robot@mirakpp.ru')
+                ->from('robot@stone-tech.ru')
                 ->to((string)$recipient)
                 ->subject('Новая заявка на расчет с сайта Stone-tech.ru')
                 ->html('<p>Новая заявка на расчет с сайта Stone-tech.ru</p>
@@ -62,7 +62,7 @@ class MailerController extends AbstractController
 
             foreach ($to as $recipient){
                 $email = (new Email())
-                    ->from('robot@mirakpp.ru')
+                    ->from('robot@stone-tech.ru')
                     ->to($recipient)
                     ->subject('Сообщение с формы Задать вопрос Stone-tech.ru')
                     ->html('<p>Сообщение с формы Задать вопрос Stone-tech.ru:</p>
@@ -87,7 +87,7 @@ class MailerController extends AbstractController
         $productType = $this->getProduct($request->get('form-product'));
         foreach ($to as $recipient){
             $email = (new Email())
-                ->from('robot@mirakpp.ru')
+                ->from('robot@stone-tech.ru')
                 ->to((string)$recipient)
                 ->subject('Новая заявка с сайта Stone-tech.ru')
                 ->html('<p>Новая заявка с сайта Stone-tech.ru</p>
