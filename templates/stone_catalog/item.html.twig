@@ -10,6 +10,7 @@
     <meta property="og:url" content="{{ app.request.schemeAndHttpHost~'/'~product.slug }}"/>
     <meta property="og:image" content="{{ app.request.schemeAndHttpHost }}/img/header/logo1.png"/>
 {% endblock %}
+{% block canonical %}<link rel="canonical" href="{{ app.request.schemeAndHttpHost~'/'~product.slug }}"/>{% endblock %}
 {% block header %}
     {# header banner#}
     {% embed 'elements/header.html.twig' %}

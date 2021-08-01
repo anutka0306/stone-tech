@@ -6,7 +6,7 @@
         <title>{% block title %}{% endblock %}</title>
         <meta name="description" content="{% block description %}{% endblock %}">
         {% block lastMod %}<meta http-equiv="Last-Modified" content="{{ page.updated|date('D, d M Y H:i:s') }} GMT">{% endblock %}
-
+        {% block canonical %}<link rel="canonical" href="{{ app.request.schemeAndHttpHost~'/'~page.path }}"/>{% endblock %}
         {% block scheme %}
             <meta property="og:title" content="{{ block('title') }}"/>
             <meta property="og:description" content="{{ block('description') }}"/>

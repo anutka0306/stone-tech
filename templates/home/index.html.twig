@@ -2,6 +2,13 @@
 
 {% block title %}{{ page.seoTitle }}{% endblock %}
 {% block description %}{{ page.seoDescription }}{% endblock %}
+{% block canonical %}<link rel="canonical" href="{{ app.request.schemeAndHttpHost~page.path }}"/>{% endblock %}
+        {% block scheme %}
+            <meta property="og:title" content="{{ block('title') }}"/>
+            <meta property="og:description" content="{{ block('description') }}"/>
+            <meta property="og:url" content="{{ app.request.schemeAndHttpHost~page.path }}"/>
+            <meta property="og:image" content="{{ app.request.schemeAndHttpHost }}/img/header/logo1.png"/>
+        {% endblock %}
 
 {% block header %}
     {# header banner#}

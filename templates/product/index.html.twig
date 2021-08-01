@@ -4,6 +4,7 @@
 
 {% block description %}{% if product.metaDescription is not null %} {{ product.metaDescription}} {% else %}{{ product.name }}  купить в Москве. ⭐ Бесплатный замер. ✅ Изготовление и установка столешниц за 5-7 дней. ✅ Гарантия 2 года. ⭐ {{ product.name }} по низким ценам ☎ 8(495)961-26-90.{% endif %}{% endblock %}
 {% block lastMod %}<meta http-equiv="Last-Modified" content="{{ product.updated|date('D, d M Y H:i:s') }} GMT">{% endblock %}
+{% block canonical %}<link rel="canonical" href="{{ app.request.schemeAndHttpHost~'/'~product.path }}"/>{% endblock %}
  {% block scheme %}
      <meta property="og:title" content="{{ block('title') }}"/>
      <meta property="og:description" content="{{ block('description') }}"/>
