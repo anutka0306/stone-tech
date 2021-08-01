@@ -8,8 +8,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use PhpParser\Node\Scalar\MagicConst\File;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -49,7 +51,11 @@ class StoneProductCrudController extends AbstractCrudController
             AssociationField::new('parent'),
             AssociationField::new('color'),
             AssociationField::new('country'),
+            TextField::new('title'),
+            TextEditorField::new('description'),
             CollectionField::new('attachments')->setEntryType(AttachmentType::class)->onlyWhenUpdating(),
+            DateTimeField::new('updated')->hideOnIndex(),
+
         ];
     }
 

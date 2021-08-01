@@ -76,6 +76,11 @@ class Products
      */
     private $big_img;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updated;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -209,6 +214,18 @@ class Products
     public function setBigImg(?string $big_img): self
     {
         $this->big_img = $big_img;
+
+        return $this;
+    }
+
+    public function getUpdated(): ?\DateTimeInterface
+    {
+        return $this->updated;
+    }
+
+    public function setUpdated(?\DateTimeInterface $updated): self
+    {
+        $this->updated = $updated;
 
         return $this;
     }

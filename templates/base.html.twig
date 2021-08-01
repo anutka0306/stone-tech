@@ -5,6 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
         <title>{% block title %}{% endblock %}</title>
         <meta name="description" content="{% block description %}{% endblock %}">
+        {% block lastMod %}<meta http-equiv="Last-Modified" content="{{ page.updated|date('D, d M Y H:i:s') }} GMT">{% endblock %}
+
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
         {% block stylesheets %}
