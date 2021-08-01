@@ -7,6 +7,13 @@
         <meta name="description" content="{% block description %}{% endblock %}">
         {% block lastMod %}<meta http-equiv="Last-Modified" content="{{ page.updated|date('D, d M Y H:i:s') }} GMT">{% endblock %}
 
+        {% block scheme %}
+            <meta property="og:title" content="{{ block('title') }}"/>
+            <meta property="og:description" content="{{ block('description') }}"/>
+            <meta property="og:url" content="{{ app.request.schemeAndHttpHost~'/'~page.path }}"/>
+            <meta property="og:image" content="{{ app.request.schemeAndHttpHost }}/img/header/logo1.png"/>
+        {% endblock %}
+
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
         {% block stylesheets %}
@@ -47,6 +54,10 @@
             <script src="{{ asset('js/jquery.glide.js') }}"></script>
 
             {#{{ encore_entry_script_tags('app') }}#}
+            <!-- Yandex.Metrika counter -->
+            <script type="text/javascript">(function(d,w,c){(w[c]=w[c]||[]).push(function(){try{w.yaCounter45813690=new Ya.Metrika({id:45813690,clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true});}catch(e){}});var n=d.getElementsByTagName("script")[0],s=d.createElement("script"),f=function(){n.parentNode.insertBefore(s,n);};s.type="text/javascript";s.async=true;s.src="https://mc.yandex.ru/metrika/watch.js";if(w.opera=="[object Opera]"){d.addEventListener("DOMContentLoaded",f,false);}else{f();}})(document,window,"yandex_metrika_callbacks");</script>
+            <noscript><div><img src="https://mc.yandex.ru/watch/45813690" style="position:absolute; left:-9999px;" alt="" data-pagespeed-url-hash="2921145116"/></div></noscript>
+            <!-- /Yandex.Metrika counter -->
         {% endblock %}
     </head>
     <body>
