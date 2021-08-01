@@ -1,20 +1,16 @@
 User-agent: *
-Disallow: /
-Disallow: /agreement/
-Disallow: /*utm_
-Disallow: /*_openstat
-Disallow: /*gclid
-Disallow: /page_s/happy/
-Disallow: /index.php
-Disallow: /404/
-Disallow: /salon/new/
-Disallow: /graff_newyear*
-Disallow: /tmp/shema_pechat_tulska/*
-
-
-
-Clean-param: utm_source&utm_medium&utm_term&utm_campaign /
-Clean-param: _openstat /
-Clean-param: gclid /
-Sitemap: https://mirakpp.ru/sitemap.xml
-Host: mirakpp.ru
+Disallow: /wp-admin
+Disallow: /wp-includes
+Disallow: /wp-content/plugins
+Disallow: /wp-content/cache
+Disallow: /wp-content/themes
+Disallow: /trackback
+Disallow: */trackback
+Disallow: */*/trackback
+Disallow: */*/feed/*/
+Disallow: */feed
+Disallow: /*?*
+Disallow: /tag
+Disallow: /test
+Host: www.stone-tech.ru
+Sitemap: https://www.stone-tech.ru/sitemap.xml
