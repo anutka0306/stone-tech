@@ -52,7 +52,7 @@ class StoneProductCrudController extends AbstractCrudController
             AssociationField::new('color'),
             AssociationField::new('country'),
             TextField::new('title'),
-            TextEditorField::new('description'),
+            TextField::new('description'),
             CollectionField::new('attachments')->setEntryType(AttachmentType::class)->onlyWhenUpdating(),
             DateTimeField::new('updated')->hideOnIndex(),
 

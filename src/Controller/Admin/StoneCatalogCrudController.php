@@ -21,7 +21,7 @@ class StoneCatalogCrudController extends AbstractCrudController
         return [
             TextField::new('name', 'Название')->setRequired(true),
             TextField::new('slug', 'Алиас')->setRequired(true),
-            TextEditorField::new('description', 'Описание')->setRequired(true),
+            TextField::new('description', 'Описание')->setRequired(true),
             DateTimeField::new('updated')->hideOnIndex(),
         ];
     }

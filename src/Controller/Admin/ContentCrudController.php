@@ -63,7 +63,7 @@ class ContentCrudController extends AbstractCrudController
             ]),
             AssociationField::new('category_id', 'Категория')->hideOnIndex()->setHelp('Нужен только для типа страниц "Категория"'),
             Field::new('seo_title', 'Title')->hideOnIndex(),
-            TextEditorField::new('seo_description')->hideOnIndex(),
+            TextField::new('seo_description')->hideOnIndex(),
             CodeEditorField::new('seo_text')->setLabel('SEO текст')->setHelp('До спойлера')->hideOnIndex(),
             CodeEditorField::new('seo_text_hidden', 'Скрытый SEO текст')->setHelp('Под спойлером')->hideOnIndex(),
 
