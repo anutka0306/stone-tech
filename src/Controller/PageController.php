@@ -225,6 +225,7 @@ class PageController extends AbstractController
             'pagination'=>$pagination,
             'activeColor' => $color,
             'colorName' => $colorName->getColorPlural(),
+            'colorPath' => $colorName->getSlug(),
         ]);
     }
 
