@@ -23,6 +23,8 @@
 {% block body %}
     {{ breadcrumbs(category) }}
 
+    {#{{ dump(test) }}#}
+
     {{ render(controller('App\\Widget\\Rating::show')) }}
 
     {% embed 'elements/advantages.html.twig' %}
@@ -70,7 +72,7 @@
     {# Каталог #}
     {% if products is not empty %}
         <a id="catalog-anchor"></a>
-        {% include 'elements/catalog-block.html.twig' with {'products': products, 'category': category.categoryId.id, 'path':category.path, 'cardTitle': category.cardTitle} %}
+        {% include 'elements/catalog-block.html.twig' with {'products': products, 'category': category.categoryId.id, 'path':category.path, 'cardTitle': category.cardTitle, 'categoryChildren': categoryChildren} %}
     {% endif %}
 
     {# Преимущества нижние #}

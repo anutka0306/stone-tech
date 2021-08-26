@@ -7,7 +7,15 @@
             <div class="clear-filter" {% if activeColor is null %} style="display: none" {% endif %}>
                 <a href="/{{ path }}#catalog-anchor" class="mbtn">Сбросить фильтры</a>
             </div>
-
+            {% if categoryChildren is not empty %}
+                <div class="sub-sections-filter">
+                    {% for child in categoryChildren %}
+                        <a href="/{{ child.path }}#catalog-anchor">
+                            {{ child.name }}
+                        </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
             <div class="color-filter">
                 <div class="color-header">
                     Выбрать цвет:

@@ -157,7 +157,20 @@ class PageController extends AbstractController
         }
 
         $ourWorks = $this->getOurWorkImages($category->getPath());
-        $products = $this->getProducts($this->products_repository, $category->getCategoryId(), $sort);
+
+        $category_children = $this->page_repository->findBy(['parent' => $category->getId()]);
+
+
+        if(empty($category_children)){
+            $products = $this->getProducts($this->products_repository, $category->getCategoryId(), $sort);
+        }else{
+            $category_arr = array();
+            foreach ($category_children as $item){
+                $category_arr[] = $item->getCategoryId();
+            }
+            $products = $this->getProductsFromChildren($this->products_repository, $category_arr, $sort);
+        }
+
         $pagination = $paginator->paginate(
             $products, /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
@@ -186,6 +199,7 @@ class PageController extends AbstractController
             'pagination'=>$pagination,
             'activeColor' => null,
             'minPrice' => $min_price,
+            'categoryChildren' => $category_children,
         ]);
     }
 
@@ -196,8 +210,21 @@ class PageController extends AbstractController
         }
 
         $ourWorks = $this->getOurWorkImages($category->getPath());
-        $products = $this->getProductsByColor($this->products_repository, $this->color_repository, $category->getCategoryId(), $color, $sort);
-        $all_category_products = $this->getProducts($this->products_repository, $category->getCategoryId(), $sort);
+
+        $category_children = $this->page_repository->findBy(['parent' => $category->getId()]);
+        if(empty($category_children)) {
+            $products = $this->getProductsByColor($this->products_repository, $this->color_repository, $category->getCategoryId(), $color, $sort);
+            $all_category_products = $this->getProducts($this->products_repository, $category->getCategoryId(), $sort);
+        }else{
+            $category_arr = array();
+            foreach ($category_children as $item){
+                $category_arr[] = $item->getCategoryId();
+            }
+            $products = $this->getProductsByColorFromChild($this->products_repository, $this->color_repository, $category_arr, $color, $sort);
+            $all_category_products = $this->getProducts($this->products_repository, $category_arr, $sort);
+        }
+
+
         $pagination = $paginator->paginate(
             $products, /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
@@ -214,6 +241,7 @@ class PageController extends AbstractController
                 'colors' => $colors,
                 'pagination'=>$pagination,
                 'activeColor' => null,
+                'categoryChildren' => $category_children,
             ]);
         }
 
@@ -226,6 +254,7 @@ class PageController extends AbstractController
             'activeColor' => $color,
             'colorName' => $colorName->getColorPlural(),
             'colorPath' => $colorName->getSlug(),
+            'categoryChildren' => $category_children,
         ]);
     }
 
@@ -264,6 +293,15 @@ class PageController extends AbstractController
         return $products;
     }
 
+    private function getProductsFromChildren(ProductsRepository $productsRepository, $categoriesArr, $sort){
+        if(!isset($sort)){
+            $products = $productsRepository->findBy(['category_id' => $categoriesArr], ['price'=>'ASC']);
+        }else{
+            $products = $productsRepository->findBy(['category_id' => $categoriesArr], ['price'=>$sort]);
+        }
+        return $products;
+    }
+
     private function getProductsByColor(ProductsRepository $productsRepository, ColorRepository $colorRepository, $categoryId, $color, $sort){
         if(!isset($sort)){
             $products = $productsRepository->findBy([
@@ -273,6 +311,21 @@ class PageController extends AbstractController
         }else {
             $products = $productsRepository->findBy([
                 'category_id' => $categoryId,
+                'color' => $color,
+            ], ['price' => $sort]);
+        }
+        return $products;
+    }
+
+    private function getProductsByColorFromChild(ProductsRepository $productsRepository, ColorRepository $colorRepository, $categoriesArr, $color, $sort){
+        if(!isset($sort)){
+            $products = $productsRepository->findBy([
+                'category_id' => $categoriesArr,
+                'color' => $color,
+            ]);
+        }else {
+            $products = $productsRepository->findBy([
+                'category_id' => $categoriesArr,
                 'color' => $color,
             ], ['price' => $sort]);
         }

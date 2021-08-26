@@ -5024,6 +5024,18 @@ input[name=address] {
 .filters_wrapper{
     padding: 20px;
 }
+.sub-sections-filter{
+    margin-bottom: 40px;
+    text-transform: lowercase;
+}
+.sub-sections-filter a{
+    display: block;
+    font-size: 14px;
+}
+.sub-sections-filter a:first-letter{
+    text-transform: uppercase;
+}
+
 .color-filter .color-header{
     padding-left: 20px;
     cursor: pointer;

@@ -35,7 +35,7 @@
     {% if products is not empty %}
         <a id="catalog-anchor"></a>
         {% set h1 = category.name ~ ' ' ~ colorName %}
-        {% include 'elements/catalog-block.html.twig' with {'products': products, 'category': category.categoryId.id, 'path':category.path, 'cardTitle': h1 } %}
+        {% include 'elements/catalog-block.html.twig' with {'products': products, 'category': category.categoryId.id, 'path':category.path, 'cardTitle': h1, 'categoryChildren': categoryChildren } %}
     {% endif %}
 
 
