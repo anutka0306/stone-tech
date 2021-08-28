@@ -9,11 +9,16 @@
             </div>
             {% if categoryChildren is not empty %}
                 <div class="sub-sections-filter">
+                    <div class="sub-sections-header">
+                        Выбрать материал:
+                    </div>
+                    <div class="sub-sections-filter_body">
                     {% for child in categoryChildren %}
                         <a href="/{{ child.path }}#catalog-anchor">
                             {{ child.name }}
                         </a>
                     {% endfor %}
+                    </div>
                 </div>
             {% endif %}
             <div class="color-filter">

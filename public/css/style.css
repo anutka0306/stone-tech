@@ -5032,16 +5032,16 @@ input[name=address] {
     display: block;
     font-size: 14px;
 }
-.sub-sections-filter a:first-letter{
+.sub-sections-filter a:first-letter, .sub-sections-filter .sub-sections-header:first-letter{
     text-transform: uppercase;
 }
 
-.color-filter .color-header{
+.color-filter .color-header, .sub-sections-filter .sub-sections-header{
     padding-left: 20px;
     cursor: pointer;
     position: relative;
 }
-.color-filter .color-header:before{
+.color-filter .color-header:before, .sub-sections-filter .sub-sections-header:before{
     content: "";
     width: 15px;
     height: 15px;
@@ -5052,7 +5052,7 @@ input[name=address] {
     background: url(../img/down-arrow.svg) 50% no-repeat;
     background-size: cover;
 }
-.color-filter_body{
+.color-filter_body, .sub-sections-filter_body{
     padding-left: 20px;
     padding-top: 20px;
     display: flex;
