@@ -196,7 +196,7 @@ a {
 	position:  absolute;
 	height:  100%;
 	width: 100%;
-	background: rgba(0,0,0,0.7);
+	background: rgba(0,0,0,0.6);
 	z-index: 9;
 }
 
@@ -603,7 +603,12 @@ button::-moz-focus-inner {
 /*OFFER*/
 
 .header .offer {
-    margin-top: 55px;
+    margin-top: 85px;
+}
+@media (max-width: 1292px) {
+    .header .offer {
+        margin-top: 5px;
+    }
 }
 
 .header .offer h3 {
@@ -644,8 +649,8 @@ button::-moz-focus-inner {
     overflow: hidden;
     background: rgba(188, 116, 25, 0.2);
     border: 2px solid rgba(244, 150, 30, 0.7);
-    margin-top: 45px;
-    margin-bottom: 55px;
+    margin-top: 65px;
+    margin-bottom: 65px;
     padding: 10px;
     transition: 1s;
     box-shadow: 0 1px 3px 2px rgba(59, 43, 36, 0.25);
@@ -703,7 +708,7 @@ button::-moz-focus-inner {
         order:2;
     }
     .header .slider{
-        height: 490px;
+        height: 588px;
     }
 }
 @media screen and (max-width: 1170px) {
