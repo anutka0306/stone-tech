@@ -173,7 +173,7 @@ class PageController extends AbstractController
         if(empty($category_children)){
             if(isset($_POST['ajax']) && isset($_POST['page'])){
                 $products = $this->getProductsMore($this->products_repository, $category->getCategoryId(), $sort, $page, $startPage);
-                $limit = 16*($page);
+                $limit = 16*($page + 1);
                 $pagination = $paginator->paginate(
                     $products, /* query NOT result */
                     $request->query->getInt('page', 1), /*page number*/
@@ -194,7 +194,7 @@ class PageController extends AbstractController
             }
             if(isset($_POST['ajax']) && isset($_POST['page'])){
                 $products = $this->getProductsFromChildrenMore($this->products_repository, $category_arr, $sort, $page, $startPage);
-                $limit = 16*($page);
+                $limit = 16*($page+1);
                 $pagination = $paginator->paginate(
                     $products, /* query NOT result */
                     $request->query->getInt('page', 1), /*page number*/
@@ -262,7 +262,7 @@ class PageController extends AbstractController
         if(empty($category_children)) {
             if(isset($_POST['ajax']) && isset($_POST['page'])){
                 $products = $this->getProductsByColorMore($this->products_repository, $this->color_repository, $category->getCategoryId(), $color, $sort, $page, $startPage);
-                $limit = 16*($page);
+                $limit = 16*($page+1);
                 $all_category_products = $this->getProducts($this->products_repository, $category->getCategoryId(), $sort);
                 $pagination = $paginator->paginate(
                     $products, /* query NOT result */
@@ -287,7 +287,7 @@ class PageController extends AbstractController
             }
             if(isset($_POST['ajax']) && isset($_POST['page'])) {
                 $products = $this->getProductsByColorFromChildMore($this->products_repository, $this->color_repository, $category_arr, $color, $sort, $page, $startPage);
-                $limit = 16 * ($page);
+                $limit = 16 * ($page + 1);
                 $pagination = $paginator->paginate(
                     $products, /* query NOT result */
                     $request->query->getInt('page', 1), /*page number*/
