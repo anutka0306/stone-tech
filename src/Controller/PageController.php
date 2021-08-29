@@ -176,7 +176,7 @@ class PageController extends AbstractController
                 $limit = 16*($page+1);
                 $pagination = $paginator->paginate(
                     $products, /* query NOT result */
-                    $request->query->getInt('page', $page), /*page number*/
+                    $request->query->getInt('page', 1), /*page number*/
                     $limit /*limit per page*/
                 );
             }else {
@@ -197,7 +197,7 @@ class PageController extends AbstractController
                 $limit = 16*($page+1);
                 $pagination = $paginator->paginate(
                     $products, /* query NOT result */
-                    $request->query->getInt('page', $page), /*page number*/
+                    $request->query->getInt('page', 1), /*page number*/
                     $limit /*limit per page*/
                 );
             }else{
@@ -266,7 +266,7 @@ class PageController extends AbstractController
                 $all_category_products = $this->getProducts($this->products_repository, $category->getCategoryId(), $sort);
                 $pagination = $paginator->paginate(
                     $products, /* query NOT result */
-                    $request->query->getInt('page', $page), /*page number*/
+                    $request->query->getInt('page', 1), /*page number*/
                     $limit /*limit per page*/
                 );
             }else {
@@ -290,7 +290,7 @@ class PageController extends AbstractController
                 $limit = 16 * ($page + 1);
                 $pagination = $paginator->paginate(
                     $products, /* query NOT result */
-                    $request->query->getInt('page', $page), /*page number*/
+                    $request->query->getInt('page', 1), /*page number*/
                     $limit /*limit per page*/
                 );
                 $all_category_products = $this->getProducts($this->products_repository, $category_arr, $sort);
