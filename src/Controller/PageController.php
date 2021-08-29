@@ -151,6 +151,15 @@ class PageController extends AbstractController
     }
 
     private function category($category, $paginator, $request){
+        //определяем страницу, на которой находимся
+
+        $page = 1;
+        $startPage = 1;
+        if(isset($_POST['ajax']) && isset($_POST['page'])){
+            $page = $_POST['page'];
+            $startPage = $_POST['startPage'];
+        }
+
         $sort = null;
         if (isset($_POST['ajax']) && isset($_POST['sort'])){
             $sort = $_POST['sort'];
@@ -162,33 +171,61 @@ class PageController extends AbstractController
 
 
         if(empty($category_children)){
-            $products = $this->getProducts($this->products_repository, $category->getCategoryId(), $sort);
+            if(isset($_POST['ajax']) && isset($_POST['page'])){
+                $products = $this->getProductsMore($this->products_repository, $category->getCategoryId(), $sort, $page, $startPage);
+                $limit = 16*($page+1);
+                $pagination = $paginator->paginate(
+                    $products, /* query NOT result */
+                    $request->query->getInt('page', $page), /*page number*/
+                    $limit /*limit per page*/
+                );
+            }else {
+                $products = $this->getProducts($this->products_repository, $category->getCategoryId(), $sort);
+                $pagination = $paginator->paginate(
+                    $products,
+                    $request->query->getInt('page', 1),
+                    16
+                );
+            }
         }else{
             $category_arr = array();
             foreach ($category_children as $item){
                 $category_arr[] = $item->getCategoryId();
             }
-            $products = $this->getProductsFromChildren($this->products_repository, $category_arr, $sort);
+            if(isset($_POST['ajax']) && isset($_POST['page'])){
+                $products = $this->getProductsFromChildrenMore($this->products_repository, $category_arr, $sort, $page, $startPage);
+                $limit = 16*($page+1);
+                $pagination = $paginator->paginate(
+                    $products, /* query NOT result */
+                    $request->query->getInt('page', $page), /*page number*/
+                    $limit /*limit per page*/
+                );
+            }else{
+                $products = $this->getProductsFromChildren($this->products_repository, $category_arr, $sort);
+                $pagination = $paginator->paginate(
+                    $products,
+                    $request->query->getInt('page', 1),
+                    16
+                );
+            }
+
         }
 
-        $pagination = $paginator->paginate(
-            $products, /* query NOT result */
-            $request->query->getInt('page', 1), /*page number*/
-            16 /*limit per page*/
-        );
         $pagination->setParam('_fragment', 'catalog-anchor');
         $colors = $this->getColors($products);
         $min_price = $this->products_repository->findOneBy(['category_id' =>$category->getCategoryId()], ['price'=>'ASC']);
 
         if(isset($_POST['ajax'])){
-            return $this->render('ajax/catalog.html.twig',[
-                'path'=>$category->getPath(),
-                'category' =>$category->getCategoryId(),
-                'products' => $products,
-                'colors' => $colors,
-                'pagination'=>$pagination,
-                'activeColor' => null,
-            ]);
+
+                return $this->render('ajax/catalog.html.twig', [
+                    'path' => $category->getPath(),
+                    'category' => $category->getCategoryId(),
+                    'products' => $products,
+                    'colors' => $colors,
+                    'pagination' => $pagination,
+                    'activeColor' => null,
+                ]);
+
         }
 
         return $this->render('page/category.html.twig',[
@@ -204,6 +241,15 @@ class PageController extends AbstractController
     }
 
     private function category_color($category, $color, $paginator, $request){
+        //определяем страницу, на которой находимся
+
+        $page = 1;
+        $startPage = 1;
+        if(isset($_POST['ajax']) && isset($_POST['page'])){
+            $page = $_POST['page'];
+            $startPage = $_POST['startPage'];
+        }
+
         $sort = null;
         if (isset($_POST['ajax']) && isset($_POST['sort'])){
             $sort = $_POST['sort'];
@@ -212,27 +258,59 @@ class PageController extends AbstractController
         $ourWorks = $this->getOurWorkImages($category->getPath());
 
         $category_children = $this->page_repository->findBy(['parent' => $category->getId()]);
+        //если не общая стр
         if(empty($category_children)) {
-            $products = $this->getProductsByColor($this->products_repository, $this->color_repository, $category->getCategoryId(), $color, $sort);
-            $all_category_products = $this->getProducts($this->products_repository, $category->getCategoryId(), $sort);
-        }else{
+            if(isset($_POST['ajax']) && isset($_POST['page'])){
+                $products = $this->getProductsByColorMore($this->products_repository, $this->color_repository, $category->getCategoryId(), $color, $sort, $page, $startPage);
+                $limit = 16*($page+1);
+                $all_category_products = $this->getProducts($this->products_repository, $category->getCategoryId(), $sort);
+                $pagination = $paginator->paginate(
+                    $products, /* query NOT result */
+                    $request->query->getInt('page', $page), /*page number*/
+                    $limit /*limit per page*/
+                );
+            }else {
+                $products = $this->getProductsByColor($this->products_repository, $this->color_repository, $category->getCategoryId(), $color, $sort);
+                $all_category_products = $this->getProducts($this->products_repository, $category->getCategoryId(), $sort);
+                $pagination = $paginator->paginate(
+                    $products,
+                    $request->query->getInt('page', 1),
+                    16
+                );
+            }
+        }
+        //если общая
+        else {
             $category_arr = array();
-            foreach ($category_children as $item){
+            foreach ($category_children as $item) {
                 $category_arr[] = $item->getCategoryId();
             }
-            $products = $this->getProductsByColorFromChild($this->products_repository, $this->color_repository, $category_arr, $color, $sort);
-            $all_category_products = $this->getProducts($this->products_repository, $category_arr, $sort);
+            if(isset($_POST['ajax']) && isset($_POST['page'])) {
+                $products = $this->getProductsByColorFromChildMore($this->products_repository, $this->color_repository, $category_arr, $color, $sort, $page, $startPage);
+                $limit = 16 * ($page + 1);
+                $pagination = $paginator->paginate(
+                    $products, /* query NOT result */
+                    $request->query->getInt('page', $page), /*page number*/
+                    $limit /*limit per page*/
+                );
+                $all_category_products = $this->getProducts($this->products_repository, $category_arr, $sort);
+            } else {
+                $products = $this->getProductsByColorFromChild($this->products_repository, $this->color_repository, $category_arr, $color, $sort);
+                $pagination = $paginator->paginate(
+                    $products,
+                    $request->query->getInt('page', 1),
+                    16
+                );
+                $all_category_products = $this->getProducts($this->products_repository, $category_arr, $sort);
+            }
         }
 
 
-        $pagination = $paginator->paginate(
-            $products, /* query NOT result */
-            $request->query->getInt('page', 1), /*page number*/
-            16 /*limit per page*/
-        );
+
         $pagination->setParam('_fragment', 'catalog-anchor');
         $colors = $this->getColors($all_category_products);
         $colorName = $this->color_repository->find($color);
+
         if(isset($_POST['ajax'])){
             return $this->render('ajax/catalog.html.twig',[
                 'path'=>$category->getPath(),
@@ -292,12 +370,29 @@ class PageController extends AbstractController
         }
         return $products;
     }
+    private function getProductsMore(ProductsRepository $productsRepository, $categoryId, $sort, $page, $startPage){
+        if(!isset($sort)){
+            $products = $productsRepository->findBy(['category_id' => $categoryId], ['price'=>'ASC'], 16*($page+1), 16*$startPage-16);
+        }else{
+            $products = $productsRepository->findBy(['category_id' => $categoryId], ['price'=>$sort], 16*($page+1), 16*$startPage-16);
+        }
+        return $products;
+    }
 
     private function getProductsFromChildren(ProductsRepository $productsRepository, $categoriesArr, $sort){
         if(!isset($sort)){
             $products = $productsRepository->findBy(['category_id' => $categoriesArr], ['price'=>'ASC']);
         }else{
             $products = $productsRepository->findBy(['category_id' => $categoriesArr], ['price'=>$sort]);
+        }
+        return $products;
+    }
+
+    private function getProductsFromChildrenMore(ProductsRepository $productsRepository, $categoriesArr, $sort, $page, $startPage){
+        if(!isset($sort)){
+            $products = $productsRepository->findBy(['category_id' => $categoriesArr], ['price'=>'ASC'], 16*($page+1), 16*$startPage-16);
+        }else{
+            $products = $productsRepository->findBy(['category_id' => $categoriesArr], ['price'=>$sort], 16*($page+1), 16*$startPage-16);
         }
         return $products;
     }
@@ -317,6 +412,21 @@ class PageController extends AbstractController
         return $products;
     }
 
+    private function getProductsByColorMore(ProductsRepository $productsRepository, ColorRepository $colorRepository, $categoryId, $color, $sort, $page, $startPage){
+        if(!isset($sort)){
+            $products = $productsRepository->findBy([
+                'category_id' => $categoryId,
+                'color' => $color,
+            ], [],16*($page+1), 16*$startPage-16);
+        }else {
+            $products = $productsRepository->findBy([
+                'category_id' => $categoryId,
+                'color' => $color,
+            ], ['price'=>$sort], 16*($page+1), 16*$startPage-16);
+        }
+        return $products;
+    }
+
     private function getProductsByColorFromChild(ProductsRepository $productsRepository, ColorRepository $colorRepository, $categoriesArr, $color, $sort){
         if(!isset($sort)){
             $products = $productsRepository->findBy([
@@ -328,6 +438,21 @@ class PageController extends AbstractController
                 'category_id' => $categoriesArr,
                 'color' => $color,
             ], ['price' => $sort]);
+        }
+        return $products;
+    }
+
+    private function getProductsByColorFromChildMore(ProductsRepository $productsRepository, ColorRepository $colorRepository, $categoriesArr, $color, $sort, $page, $startPage){
+        if(!isset($sort)){
+            $products = $productsRepository->findBy([
+                'category_id' => $categoriesArr,
+                'color' => $color,
+            ], [],16*($page+1), 16*$startPage-16);
+        }else {
+            $products = $productsRepository->findBy([
+                'category_id' => $categoriesArr,
+                'color' => $color,
+            ], ['price'=>$sort], 16*($page+1), 16*$startPage-16);
         }
         return $products;
     }

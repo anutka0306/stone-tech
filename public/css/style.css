@@ -5175,3 +5175,22 @@ input[name=address] {
     height: 60px;
     background-size: cover;
 }
+#show_more{
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: #78b729;
+    color: #fff;
+    padding-left: 10px;
+    padding-right: 10px;
+    transition: all 3s;
+    border-radius: 5px;
+    min-height: 40px;
+    font-weight: 700;
+    display: block;
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto 50px auto;
+}
