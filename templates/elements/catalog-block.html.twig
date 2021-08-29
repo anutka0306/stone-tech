@@ -138,9 +138,9 @@
                 $(".products-navigation__wrapper").html(response);
                 let new_page = $("#show_more").data("page")+1;
                 $("#show_more").data("page", $("#show_more").data("page")+1);
-                if($(".pagination").length == 0){
+                /*if($(".pagination").length == 0){
                     $("#show_more").css('display','none');
-                }
+                }*/
 
             },
             error: function (response) {
