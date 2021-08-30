@@ -180,7 +180,8 @@ class PageController extends AbstractController
                     $request->query->getInt('page', $page+1), /*page number*/
                     $limit /*limit per page*/
                 );
-            }else {
+            }
+            else {
                 $products = $this->getProducts($this->products_repository, $category->getCategoryId(), $sort);
                 $pagination = $paginator->paginate(
                     $products,
@@ -188,6 +189,7 @@ class PageController extends AbstractController
                     16
                 );
             }
+            $min_price = $this->products_repository->findOneBy(['category_id' =>$category->getCategoryId()], ['price'=>'ASC']);
         }
         else{
             $category_arr = array();
@@ -211,12 +213,12 @@ class PageController extends AbstractController
                     16
                 );
             }
-
+            $min_price = $this->products_repository->findOneBy(['category_id' =>$category_arr], ['price'=>'ASC']);
         }
 
         $pagination->setParam('_fragment', 'catalog-anchor');
         $colors = $this->getColors($products);
-        $min_price = $this->products_repository->findOneBy(['category_id' =>$category->getCategoryId()], ['price'=>'ASC']);
+
 
         if(isset($_POST['ajax']) && isset($_POST['page'])){
 
