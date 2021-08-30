@@ -173,10 +173,11 @@ class PageController extends AbstractController
         if(empty($category_children)){
             if(isset($_POST['ajax']) && isset($_POST['page'])){
                 $products = $this->getProductsMore($this->products_repository, $category->getCategoryId(), $sort, $page, $startPage);
-                $limit = 16*($page + 1);
+                $all_products = $this->products_repository->findBy(['category_id' => $category->getCategoryId()]);
+                $limit = 16;
                 $pagination = $paginator->paginate(
-                    $products, /* query NOT result */
-                    $request->query->getInt('page', 1), /*page number*/
+                    $all_products, /* query NOT result */
+                    $request->query->getInt('page', $page+1), /*page number*/
                     $limit /*limit per page*/
                 );
             }else {
@@ -187,17 +188,19 @@ class PageController extends AbstractController
                     16
                 );
             }
-        }else{
+        }
+        else{
             $category_arr = array();
             foreach ($category_children as $item){
                 $category_arr[] = $item->getCategoryId();
             }
             if(isset($_POST['ajax']) && isset($_POST['page'])){
                 $products = $this->getProductsFromChildrenMore($this->products_repository, $category_arr, $sort, $page, $startPage);
-                $limit = 16*($page+1);
+                $all_products = $this->products_repository->findAll();
+                $limit = 16;
                 $pagination = $paginator->paginate(
-                    $products, /* query NOT result */
-                    $request->query->getInt('page', 1), /*page number*/
+                    $all_products, /* query NOT result */
+                    $request->query->getInt('page', $page+1), /*page number*/
                     $limit /*limit per page*/
                 );
             }else{
@@ -215,9 +218,9 @@ class PageController extends AbstractController
         $colors = $this->getColors($products);
         $min_price = $this->products_repository->findOneBy(['category_id' =>$category->getCategoryId()], ['price'=>'ASC']);
 
-        if(isset($_POST['ajax'])){
+        if(isset($_POST['ajax']) && isset($_POST['page'])){
 
-                return $this->render('ajax/catalog.html.twig', [
+                return $this->render('ajax/catalog_more.html.twig', [
                     'path' => $category->getPath(),
                     'category' => $category->getCategoryId(),
                     'products' => $products,
@@ -226,6 +229,16 @@ class PageController extends AbstractController
                     'activeColor' => null,
                 ]);
 
+        }
+        elseif (isset($_POST['ajax'])){
+            return $this->render('ajax/catalog.html.twig', [
+                'path' => $category->getPath(),
+                'category' => $category->getCategoryId(),
+                'products' => $products,
+                'colors' => $colors,
+                'pagination' => $pagination,
+                'activeColor' => null,
+            ]);
         }
 
         return $this->render('page/category.html.twig',[
@@ -262,14 +275,16 @@ class PageController extends AbstractController
         if(empty($category_children)) {
             if(isset($_POST['ajax']) && isset($_POST['page'])){
                 $products = $this->getProductsByColorMore($this->products_repository, $this->color_repository, $category->getCategoryId(), $color, $sort, $page, $startPage);
-                $limit = 16*($page+1);
+                $limit = 16;
+                $all_products = $this->products_repository->findBy(['category_id' => $category->getCategoryId(), 'color' => $color]);
                 $all_category_products = $this->getProducts($this->products_repository, $category->getCategoryId(), $sort);
                 $pagination = $paginator->paginate(
-                    $products, /* query NOT result */
-                    $request->query->getInt('page', 1), /*page number*/
+                    $all_products, /* query NOT result */
+                    $request->query->getInt('page', $page+1), /*page number*/
                     $limit /*limit per page*/
                 );
-            }else {
+            }
+            else {
                 $products = $this->getProductsByColor($this->products_repository, $this->color_repository, $category->getCategoryId(), $color, $sort);
                 $all_category_products = $this->getProducts($this->products_repository, $category->getCategoryId(), $sort);
                 $pagination = $paginator->paginate(
@@ -287,10 +302,11 @@ class PageController extends AbstractController
             }
             if(isset($_POST['ajax']) && isset($_POST['page'])) {
                 $products = $this->getProductsByColorFromChildMore($this->products_repository, $this->color_repository, $category_arr, $color, $sort, $page, $startPage);
-                $limit = 16 * ($page + 1);
+                $all_products = $this->products_repository->findBy(['category_id' => $category_arr, 'color' => $color]);
+                $limit = 16;
                 $pagination = $paginator->paginate(
-                    $products, /* query NOT result */
-                    $request->query->getInt('page', 1), /*page number*/
+                    $all_products, /* query NOT result */
+                    $request->query->getInt('page', $page+1), /*page number*/
                     $limit /*limit per page*/
                 );
                 $all_category_products = $this->getProducts($this->products_repository, $category_arr, $sort);
@@ -311,7 +327,18 @@ class PageController extends AbstractController
         $colors = $this->getColors($all_category_products);
         $colorName = $this->color_repository->find($color);
 
-        if(isset($_POST['ajax'])){
+        if(isset($_POST['ajax']) && isset($_POST['page'])){
+            return $this->render('ajax/catalog_more.html.twig',[
+                'path'=>$category->getPath(),
+                'category' =>$category->getCategoryId(),
+                'products' => $products,
+                'colors' => $colors,
+                'pagination'=>$pagination,
+                'activeColor' => null,
+                'categoryChildren' => $category_children,
+            ]);
+        }
+        elseif (isset($_POST['ajax'])){
             return $this->render('ajax/catalog.html.twig',[
                 'path'=>$category->getPath(),
                 'category' =>$category->getCategoryId(),
