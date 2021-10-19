@@ -1,4 +1,4 @@
-{#{{ dump(path) }}#}
+{#{{ dump(category) }}#}
 <h2>{{ cardTitle }} ЦЕНЫ:</h2>
 <div id="catalog-block__wrapper">
     <div class="row">
@@ -58,7 +58,9 @@
                                 {{ product.name }}
                             </a>
                         </div>
-                        <div class="product__price">от {{ product.price}} {{ product.measure.name }}</div>
+                        {% if category != 21 and category != 22 and category != 23 %}
+                            <div class="product__price">от {{ product.price}} {{ product.measure.name }}</div>
+                        {% endif %}
                         <button class="popup-button raschet">Рассчитать</button>
                         <button class="popup-button raschet">Консультация</button>
                     </div>
