@@ -54,10 +54,17 @@
             {% endblock %}
 
             {% block cardPrice %}
-                {% if minPrice is not null %}
-                {{ minPrice.price }}
+                {#{{ dump(category.categoryId.id) }}#}
+                {% if category.categoryId.id == 21 or category.categoryId.id == 23 %}
+                    6100
+                {% elseif category.categoryId.id == 22 %}
+                    6200
                 {% else %}
-                {{ category.cardPrice }}
+                    {% if minPrice is not null %}
+                    {{ minPrice.price }}
+                    {% else %}
+                    {{ category.cardPrice }}
+                    {% endif %}
                 {% endif %}
             {% endblock %}
 
