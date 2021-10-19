@@ -9,7 +9,9 @@
                     {{ product.name }}
                 </a>
             </div>
-            <div class="product__price"> {{ product.price}} {{ product.measure.name }}</div>
+            {% if and category.id != 21 and category.id != 22 and category.id != 23 %}
+                <div class="product__price"> {{ product.price}} {{ product.measure.name }}</div>
+            {% endif %}
             <button class="popup-button raschet">Рассчитать</button>
             <button class="popup-button raschet">Консультация</button>
         </div>
