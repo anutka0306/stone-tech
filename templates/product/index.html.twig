@@ -47,9 +47,19 @@
             {{ product.cardText|raw }}
         {% endblock %}
 
-        {% block cardPrice %}
-            {{ product.price }}
-        {% endblock %}
+
+            {% block cardPrice %}
+                {% if product.categoryId.id != 21 and product.categoryId.id != 22 and product.categoryId.id != 23 %}
+                    {{ product.price }}
+                    {% else %}
+                    <style>
+                        .catalog .price{
+                            display: none;
+                        }
+                    </style>
+                {% endif %}
+            {% endblock %}
+
 
         {% block cardMeasure %}
             {% if product.measure is not null %}
