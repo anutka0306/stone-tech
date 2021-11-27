@@ -49,7 +49,8 @@
 
 
             {% block cardPrice %}
-                {% if product.categoryId.id != 21 and product.categoryId.id != 22 and product.categoryId.id != 23 %}
+                {#{% if product.categoryId.id != 21 and product.categoryId.id != 22 and product.categoryId.id != 23 %}#}
+{% if hidePriceArray is defined and hidePriceArray == false %}
                     {{ product.price }}
                     {% else %}
                     <style>

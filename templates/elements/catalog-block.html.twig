@@ -58,7 +58,8 @@
                                 {{ product.name }}
                             </a>
                         </div>
-                        {% if category != 21 and category != 22 and category != 23 %}
+                        {#{% if category != 21 and category != 22 and category != 23 %}#}
+                        {% if hidePriceArray is defined and hidePriceArray == false %}
                             <div class="product__price">от {{ product.price}} {{ product.measure.name }}</div>
                         {% endif %}
                         <button class="popup-button raschet">Рассчитать</button>

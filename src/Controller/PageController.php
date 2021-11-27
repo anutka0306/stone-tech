@@ -53,6 +53,8 @@ class PageController extends AbstractController
      */
     protected $stoneProductRepository;
 
+
+
    public function __construct(ContentRepository $repository, ProductsRepository $productsRepository, PaginatorInterface $paginator, ColorRepository $color_repository, StoneCatalogRepository $stoneCatalogRepository, StoneProductRepository $stoneProductRepository)
    {
        $this->page_repository = $repository;
@@ -61,6 +63,7 @@ class PageController extends AbstractController
        $this->color_repository = $color_repository;
        $this->stoneCatalogRepository = $stoneCatalogRepository;
        $this->stoneProductRepository = $stoneProductRepository;
+       $this->hide_price_array =  array(1, 2, 3, 4, 5, 21, 22, 23);
    }
 
     /**
@@ -229,6 +232,7 @@ class PageController extends AbstractController
                     'colors' => $colors,
                     'pagination' => $pagination,
                     'activeColor' => null,
+                    'hidePriceArray' => in_array($category->getCategoryId(), $this->hide_price_array),
                 ]);
 
         }
@@ -240,6 +244,7 @@ class PageController extends AbstractController
                 'colors' => $colors,
                 'pagination' => $pagination,
                 'activeColor' => null,
+                'hidePriceArray' => in_array($category->getCategoryId()->getId(), $this->hide_price_array),
             ]);
         }
 
@@ -252,6 +257,7 @@ class PageController extends AbstractController
             'activeColor' => null,
             'minPrice' => $min_price,
             'categoryChildren' => $category_children,
+            'hidePriceArray' => in_array($category->getCategoryId()->getId(), $this->hide_price_array),
         ]);
     }
 
@@ -338,6 +344,7 @@ class PageController extends AbstractController
                 'pagination'=>$pagination,
                 'activeColor' => null,
                 'categoryChildren' => $category_children,
+                'hidePriceArray' => in_array($category->getCategoryId()->getId(), $this->hide_price_array),
             ]);
         }
         elseif (isset($_POST['ajax'])){
@@ -349,6 +356,7 @@ class PageController extends AbstractController
                 'pagination'=>$pagination,
                 'activeColor' => null,
                 'categoryChildren' => $category_children,
+                'hidePriceArray' => in_array($category->getCategoryId()->getId(), $this->hide_price_array),
             ]);
         }
 
@@ -362,6 +370,7 @@ class PageController extends AbstractController
             'colorName' => $colorName->getColorPlural(),
             'colorPath' => $colorName->getSlug(),
             'categoryChildren' => $category_children,
+            'hidePriceArray' => in_array($category->getCategoryId()->getId(), $this->hide_price_array),
         ]);
     }
 
@@ -369,6 +378,7 @@ class PageController extends AbstractController
     private function product($product){
         return $this->render('product/index.html.twig',[
             'product'=>$product,
+            'hidePriceArray' => in_array($product->getCategoryId()->getId(), $this->hide_price_array),
         ]);
     }
 
