@@ -63,7 +63,7 @@ class PageController extends AbstractController
        $this->color_repository = $color_repository;
        $this->stoneCatalogRepository = $stoneCatalogRepository;
        $this->stoneProductRepository = $stoneProductRepository;
-       $this->hide_price_array =  array(1, 2, 3, 4, 5, 21, 22, 23);
+       $this->hide_price_array =  array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 21, 22, 23);
    }
 
     /**
