@@ -6,6 +6,7 @@ use App\Entity\Content;
 use App\Entity\Products;
 use App\Entity\StoneCatalog;
 use App\Entity\StoneProduct;
+use App\Entity\CityPages;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,6 +22,7 @@ use Knp\Component\Pager\Paginator;
 use App\Repository\ColorRepository;
 use App\Repository\StoneCatalogRepository;
 use App\Repository\StoneProductRepository;
+use App\Repository\CityPagesRepository;
 
 
 
@@ -53,9 +55,14 @@ class PageController extends AbstractController
      */
     protected $stoneProductRepository;
 
+    /**
+     * @var CityPagesRepository
+     */
+    protected $cityPagesRepository;
 
 
-   public function __construct(ContentRepository $repository, ProductsRepository $productsRepository, PaginatorInterface $paginator, ColorRepository $color_repository, StoneCatalogRepository $stoneCatalogRepository, StoneProductRepository $stoneProductRepository)
+
+   public function __construct(ContentRepository $repository, ProductsRepository $productsRepository, PaginatorInterface $paginator, ColorRepository $color_repository, StoneCatalogRepository $stoneCatalogRepository, StoneProductRepository $stoneProductRepository, CityPagesRepository $cityPagesRepository)
    {
        $this->page_repository = $repository;
        $this->products_repository = $productsRepository;
@@ -63,6 +70,7 @@ class PageController extends AbstractController
        $this->color_repository = $color_repository;
        $this->stoneCatalogRepository = $stoneCatalogRepository;
        $this->stoneProductRepository = $stoneProductRepository;
+       $this->cityPagesRepository = $cityPagesRepository;
        $this->hide_price_array =  array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 21, 22, 23);
    }
 
@@ -89,7 +97,7 @@ class PageController extends AbstractController
      */
 
     public function index($token, PaginatorInterface $paginator, Request $request, EntityManagerInterface $em){
-        if(!$page = $this->products_repository->findOneBy(['path'=>$token]) AND !$page = $this->page_repository->findOneBy(['path'=>$token]) AND !$page = $this->stoneCatalogRepository->findOneBy(['slug'=>$token]) AND !$page = $this->stoneProductRepository->findOneBy(['slug'=>$token])){
+        if(!$page = $this->products_repository->findOneBy(['path'=>$token]) AND !$page = $this->page_repository->findOneBy(['path'=>$token]) AND !$page = $this->stoneCatalogRepository->findOneBy(['slug'=>$token]) AND !$page = $this->stoneProductRepository->findOneBy(['slug'=>$token]) AND !$page = $this->cityPagesRepository->findOneBy(['path'=>$token])){
             throw $this->createNotFoundException(sprintf('Page %s not found', $token));
         }
 
@@ -130,6 +138,10 @@ class PageController extends AbstractController
                 return $this->stoneCatalog($page);
 
             }
+        }
+
+        if($page instanceof CityPages){
+            return new Response('<p>CityPage</p>');
         }
 
     }

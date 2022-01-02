@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ContentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Measure;
 
@@ -137,6 +139,20 @@ class Content
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="content", cascade={"persist", "remove"})
      */
     private $category_id;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CityPages::class, mappedBy="parent")
+     */
+    private $cityPages;
+
+    public function __construct()
+    {
+        $this->cityPages = new ArrayCollection();
+    }
+
+    public function __toString(){
+        return (string) $this->getName();
+    }
 
     public function getId(): ?int
     {
@@ -379,6 +395,36 @@ class Content
     public function setCategoryId(?Category $category_id): self
     {
         $this->category_id = $category_id;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CityPages[]
+     */
+    public function getCityPages(): Collection
+    {
+        return $this->cityPages;
+    }
+
+    public function addCityPage(CityPages $cityPage): self
+    {
+        if (!$this->cityPages->contains($cityPage)) {
+            $this->cityPages[] = $cityPage;
+            $cityPage->setParent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCityPage(CityPages $cityPage): self
+    {
+        if ($this->cityPages->removeElement($cityPage)) {
+            // set the owning side to null (unless already changed)
+            if ($cityPage->getParent() === $this) {
+                $cityPage->setParent(null);
+            }
+        }
 
         return $this;
     }

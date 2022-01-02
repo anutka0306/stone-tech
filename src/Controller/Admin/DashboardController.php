@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Category;
+use App\Entity\City;
+use App\Entity\CityPages;
 use App\Entity\Color;
 use App\Entity\Country;
 use App\Entity\Products;
@@ -41,6 +43,10 @@ class DashboardController extends AbstractDashboardController
         return [
             MenuItem::linkToUrl('На сайт','fas fa-home', '/'),
             MenuItem::linkToCrud('Страницы','fa fa-tags', Content::class),
+            MenuItem::subMenu('Страницы по городам', 'fa fa-tags')->setSubItems([
+                MenuItem::linkToCrud('Города', 'fas fa-list', City::class),
+                MenuItem::linkToCrud('Страницы по городам', 'fas fa-list', CityPages::class),
+            ]),
             MenuItem::subMenu('Каталог продуктов', 'fas fa-cookie')->setSubItems([
                 MenuItem::linkToCrud('Категории', 'fas fa-list', Category::class),
                 MenuItem::linkToCrud('Товары', 'fas fa-cookie', Products::class),
