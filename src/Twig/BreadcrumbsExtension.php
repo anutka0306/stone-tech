@@ -3,6 +3,7 @@
 
 namespace App\Twig;
 
+use App\Entity\CityPages;
 use App\Entity\Content;
 use App\Entity\Contracts\PageInterface;
 use App\Entity\Products;
@@ -35,6 +36,7 @@ class BreadcrumbsExtension extends AbstractExtension
             new TwigFunction('product_breadcrumbs', [$this, 'product_breadcrumbs'], ['needs_environment'=> true, 'is_safe' => ['html']]),
             new TwigFunction('stoneCatalog_braedcrumbs', [$this, 'stoneCatalog_braedcrumbs'], ['needs_environment'=> true, 'is_safe' => ['html']]),
             new TwigFunction('stoneProduct_breadcrumbs', [$this, 'stoneProduct_breadcrumbs'], ['needs_environment'=> true, 'is_safe' => ['html']]),
+            new TwigFunction('city_breadcrumbs', [$this, 'city_breadcrumbs'], ['needs_environment'=> true, 'is_safe'=>['html']]),
         ];
     }
 
@@ -86,6 +88,18 @@ class BreadcrumbsExtension extends AbstractExtension
             return '';
         }
         return $twig->render('extensions/breadcrumbs-stone.html.twig', compact( 'items','page'));
+    }
+
+    public function city_breadcrumbs(Environment $twig, CityPages $page, string $current_name = null):string{
+        if (is_null($page)) {
+            return '';
+        }
+        $items = $this->breadcrumbs_service->getCityPageItems($page, $current_name);
+        if (count($items) < 1) {
+            return '';
+        }
+        return $twig->render('extensions/breadcrumbs_city.html.twig', compact( 'items','page'));
+
     }
 
 

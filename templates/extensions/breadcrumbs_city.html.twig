@@ -1,0 +1,25 @@
+{#{{ dump(items) }}#}
+
+<section id="breadcrumbs" style="margin-top: 20px;">
+    <div class="breadcrumbs_wrapper container">
+        {% for item in items[0] %}
+            {% if loop.last %}
+                <span class="navigation_item">
+                    <a href="#">{{ item.name }}</a>
+                </span>
+            {% elseif loop.first %}
+                <span class="navigation_item">
+                    <a href="/">Главная</a>
+                    <span>&#8646;</span>
+                </span>
+            {% else %}
+                <span class="navigation_item">
+                    <a href="/{{ item.path }}">{{ item.name }}</a>
+                    <span>&#8646;</span>
+                </span>
+
+            {% endif %}
+        {% endfor %}
+    </div>
+    {# {{ include('v2/blocks/section/rating_schema.html.twig',{ page: page ?? null }) }}#}
+</section>

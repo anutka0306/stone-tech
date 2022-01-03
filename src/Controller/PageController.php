@@ -141,11 +141,18 @@ class PageController extends AbstractController
         }
 
         if($page instanceof CityPages){
-            return new Response('<p>CityPage</p>');
+            return $this->cityPage($page);
         }
 
     }
 
+    private function cityPage($page){
+        return $this->render('city_page/index.html.twig',
+        [
+            'page' => $page,
+            'cityPage' => true,
+        ]);
+    }
 
     private function stoneCatalog($page){
         $categories = $this->stoneCatalogRepository->findAll();

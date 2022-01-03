@@ -56,4 +56,66 @@
         </div>
     </div>
 </div>
+
+{% else %}
+
+    <div class="rating">
+        <div class="container">
+            <div class="zag">Независимые отзывы:</div>
+            <div class="rating_schema">
+                <div
+                        class="pl-4 mt-2"
+                        itemprop="aggregateRating"
+                        itemscope="itemscope"
+                        itemtype="http://schema.org/AggregateRating"
+                >
+                    <div class="rating-box mr-2">
+                        {{ rating.stars_html|raw }}
+                    </div>
+                    <meta itemprop="worstRating" content="1">
+
+                    <div class="rating-details">
+          <span class="mr-1">
+                <strong>
+                    <span itemprop="ratingValue">4.9</span>
+                </strong>&nbsp;
+                <span class="text-muted">из&nbsp;
+                    <span itemprop="bestRating">5</span>
+                </span>
+            </span>
+                        <em class="small text-muted">
+                            <span itemprop="ratingCount">15</span>&nbsp;оценок
+                        </em>
+                    </div>
+
+                    <div class="clr"></div>
+                    <p class="small text-muted"> Рейтинг рассчитывается по отзывам от клиентов.</p>
+                </div>
+            </div>
+
+
+            <div class="row">
+                {% for ratingItem in ratingItems1 %}
+                    <div class="col-lg-3 col-sm-6 col-10 rating-item">
+                        <a target="_blank" href="{{ ratingItem.link }}">
+                            <div class="rating-card">
+                                <div class="img">
+                                    <img src="/{{ ratingItem.img }}" alt="{{ ratingItem.alt }}">
+                                </div>
+                                <div class="text">
+                                    <span>рейтинг</span>
+                                    {{ ratingItem.stars_html|raw }}
+
+
+                                    <b>{{ ratingItem.rating }} из 5</b>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
 {% endif %}
+

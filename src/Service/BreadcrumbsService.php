@@ -3,6 +3,7 @@
 
 namespace App\Service;
 use App\Dto\BreadcrumbsItemDTO;
+use App\Entity\CityPages;
 use App\Entity\Content;
 use App\Entity\Contracts\PageInterface;
 use App\Entity\Products;
@@ -33,6 +34,13 @@ class BreadcrumbsService
         $items = $this->getBreadChain($page->getParent(), $arr);
         return array(array_reverse(array_merge(array($page), $items)));
 
+    }
+
+    public function getCityPageItems(CityPages $page, string $current_name = null):array
+    {
+        $arr = array();
+        $items = $this->getBreadChain($page->getParent()->getId(), $arr);
+        return array(array_reverse(array_merge(array($page), $items)));
     }
 
     public function getProductItems(Products $page, string $current_name = null): array

@@ -1,0 +1,178 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% if page.seoTitle is not null %} {{ page.seoTitle}} {% else %}{{ page.name|trim }} купить в Москве. {% endif %}{% endblock %}
+
+{% block description %}{% if page.seoDescription is not null %} {{ page.seoDescription}} {% else %}{{ page.name|trim }} купить в Москве. ⭐ Бесплатный замер. ✅ Изготовление и установка столешниц за 5-7 дней. ✅ Гарантия 2 года. ⭐ {{ page.name }} по низким ценам ☎ 8(495)961-26-90.{% endif %}{% endblock %}
+{% block lastMod %}<meta http-equiv="Last-Modified" content="{{ page.updated|date('D, d M Y H:i:s') }} GMT">{% endblock %}
+{% block canonical %}<link rel="canonical" href="{{ app.request.schemeAndHttpHost~'/'~page.path }}"/>{% endblock %}
+ {% block scheme %}
+     <meta property="og:title" content="{{ block('title') }}"/>
+     <meta property="og:description" content="{{ block('description') }}"/>
+     <meta property="og:url" content="{{ app.request.schemeAndHttpHost~'/'~page.path }}"/>
+     <meta property="og:image" content="{{ app.request.schemeAndHttpHost }}/img/header/logo1.png"/>
+ {% endblock %}
+{% block header %}
+    {# header banner#}
+    {% embed 'elements/header.html.twig' %}
+        {% block h1 %}
+            {{ page.name }}
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block body %}
+    {{ city_breadcrumbs(page) }}
+
+
+    {{ render(controller('App\\Widget\\Rating::show')) }}
+
+    {% embed 'elements/advantages.html.twig' %}
+        {% block keyword %}
+            {{ page.name|lower }}
+        {% endblock %}
+    {% endembed %}
+
+    {# Карточка #}
+
+    {% if page.parent.cardTitle is not null and page.parent.cardDescription is not null%}
+        {% embed 'elements/category_card.html.twig' %}
+
+            {% block cardImage %}
+                {% if page.parent.cardImage is not null %}
+                    <img class="alignnone size-medium" src="/uploads/images/cards_images/{{ asset(page.parent.cardImage) }}" width="580" height="580"><br>
+                    <br><img class="mob-img" src="/uploads/images/cards_images/{{ asset(page.parent.cardImage) }}">
+                {% endif %}
+            {% endblock %}
+
+
+            {% block cardTitle %}
+                {{ page.parent.cardTitle }} {{ page.city.changeName }}
+            {% endblock %}
+
+            {% block cardDescription %}
+                {{ page.parent.cardDescription|replace({'Осуществляется по Москве и области.':page.city.name~' и вся Московская область.'})|raw }}
+            {% endblock %}
+
+            {% block cardPrice %}
+                {#{{ dump(category.categoryId.id) }}#}
+                {% if page.parent.categoryId.id == 21 or page.parent.categoryId.id == 23 %}
+                    6100
+                {% elseif page.parent.categoryId.id == 22 %}
+                    6200
+                {% else %}
+                    {% if minPrice is not null %}
+                        {{ minPrice.price }}
+                    {% else %}
+                        {{ page.parent.cardPrice }}
+                    {% endif %}
+                {% endif %}
+            {% endblock %}
+
+            {% block cardMeasure %}
+                {% if page.parent.measure is not null %}
+                    {{ page.parent.measure.name }}
+                {% endif %}
+            {% endblock %}
+        {% endembed %}
+    {% endif %}
+
+    {# Преимущества нижние #}
+    {# Вот здесь нужно будет сделать проверку после реализации таблицы #}
+    {% embed 'elements/advantages_bottom.html.twig' %}
+        {% block key1 %}
+            {{ page.name|lower }}
+        {% endblock %}
+
+        {% block key2 %}
+            {{ page.name|lower ~ '.'}}
+        {% endblock %}
+    {% endembed %}
+
+    {% if works is defined and works is not empty %}
+        <div class="our-works_wrapper">
+            <div>
+                <h2>ПРИМЕРЫ ВЫПОЛНЕННЫХ РАБОТ</h2>
+                <p class="tac m0a">С конца 2005 года мы успешно выполнили более 2000 заказов. Вот небольшая часть работ проделанных в прошедшем сезоне:</p>
+            </div>
+            {#{{ dump(works) }}#}
+            <div class="our-works-small-slider">
+                {% for work in works %}
+                    <div class="our-works-small-item">
+                        <img data-lazy="{{ work }}" alt="" data-index="{{ loop.index-1 }}" />
+                    </div>
+                {% endfor %}
+            </div><div class="our-works-bigslider-wrapper">
+                <div class="our-works-bigslider-overlay"></div>
+
+                <div class="bigslider-close">&#215;</div>
+
+                <div class="our-works-bigslider">
+                    {% for work in works %}
+                        <div class="our-works-big-item">
+                            <img data-lazy="{{ work }}" alt="" />
+                        </div>
+                    {% endfor %}
+                </div></div>
+        </div>
+        <script>
+            $('.our-works-small-slider').slick({
+                infinite: true,
+                slidesToShow: 5,
+                centerMode: false,
+                slidesToScroll: 1,
+                lazyLoad: 'ondemand',
+                responsive: [
+                    {
+                        breakpoint: 1599,
+                        settings: {
+                            slidesToShow: 4,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 991,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 767,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 567,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
+            });
+            var screen_width = document.documentElement.clientWidth;
+            var our_works_bigslider = $('.our-works-bigslider').slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                lazyLoad: 'ondemand'
+            });
+            $('.our-works-small-item').on('click',function (event) {
+                if(screen_width > 576){
+                    $('.our-works-bigslider-wrapper').fadeIn(400);
+                    let slider_index = $(event.target).data('index');
+                    window.our_works_bigslider.slick('slickGoTo', slider_index);
+                }
+            });
+            $('.bigslider-close').on('click',function () {
+                $('.our-works-bigslider-wrapper').fadeOut(400);
+            });
+            $('.our-works-bigslider-overlay').on('click',function () {
+                $('.our-works-bigslider-wrapper').fadeOut(400);
+            });
+        </script>
+    {% endif %}
+
+    
+{% endblock %}
