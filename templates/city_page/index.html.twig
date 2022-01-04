@@ -60,7 +60,7 @@
                 {% elseif page.parent.categoryId.id == 22 %}
                     6200
                 {% else %}
-                    {% if minPrice is not null %}
+                    {% if minPrice is defined and minPrice is not null %}
                         {{ minPrice.price }}
                     {% else %}
                         {{ page.parent.cardPrice }}
@@ -174,5 +174,5 @@
         </script>
     {% endif %}
 
-    
+
 {% endblock %}
