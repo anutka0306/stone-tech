@@ -80,6 +80,7 @@ class ParserController extends AbstractController
 
     public function index(): Response
     {
+        exit();
         $cities = $this->cityRepository->findAll();
         foreach ($cities as $city){
             foreach ($this->categories as $category) {
