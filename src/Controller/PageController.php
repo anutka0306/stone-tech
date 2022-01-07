@@ -72,7 +72,23 @@ class PageController extends AbstractController
        $this->stoneProductRepository = $stoneProductRepository;
        $this->cityPagesRepository = $cityPagesRepository;
        $this->hide_price_array =  array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 21, 22, 23);
+       $this->districtsCategory = array(1, 2, 3, 6, 7, 8, 11, 12, 13, 21, 22, 23);
    }
+
+    /**
+     * @Route ("/{token}districts/", name="districts", requirements={"token"=".+\/$"})
+     */
+    public function districts($token, Request $request):Response{
+        if(!$page =  $this->page_repository->findOneBy(['path'=>$token]) or in_array($page->getCategoryId()->getId(), $this->districtsCategory) == false){
+            throw $this->createNotFoundException(sprintf('Page %s not found', $token.'districts'));
+        }
+        $cities = $this->cityPagesRepository->findBy(['parent' => $page->getId()]);
+        return $this->render('districts/index.html.twig', [
+            'page' => $page,
+            'cityPage' => true,
+            'cities' => $cities,
+        ]);
+    }
 
     /**
      * @Route("/{token}color/{color_token}", name="dynamic_catalog", requirements={"token"= ".+\/$", "color_token"=".+"})

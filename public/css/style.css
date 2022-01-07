@@ -5197,3 +5197,13 @@ input[name=address] {
 #catalog-block__wrapper{
     max-width: 99%;
 }
+.cities__list{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.cities__list .container{
+    max-width: 1140px !important;
+}
+.cities__list_item{
+    display: block;
+}

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page.seoTitle }}{% endblock %}
+{% block description %}{{ page.seoDescription }}{% endblock %}
+{% block canonical %}<link rel="canonical" href="{{ app.request.schemeAndHttpHost~page.path }}"/>{% endblock %}
+        {% block scheme %}
+            <meta property="og:title" content="{{ block('title') }}"/>
+            <meta property="og:description" content="{{ block('description') }}"/>
+            <meta property="og:url" content="{{ app.request.schemeAndHttpHost~page.path }}"/>
+            <meta property="og:image" content="{{ app.request.schemeAndHttpHost }}/img/header/logo1.png"/>
+        {% endblock %}
+
+{% block header %}
+    {# header banner#}
+    {% embed 'elements/header.html.twig' %}
+        {% block h1 %}
+            {{ page.name }} города
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block body %}
+    <section class="cities__list">
+        <div class="container">
+            <div class="row">
+        <h2>{{ page.name }} в Московской обасти</h2>
+        {% for row in cities|batch(3) %}
+            <div class="col-md-4 col-sm-4 col-12">
+                {% for city in row %}
+                    <a class="cities__list_item" href="/{{ city.path }}">{{ city.city.changeName }}</a>
+                {% endfor %}
+            </div>
+        {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
