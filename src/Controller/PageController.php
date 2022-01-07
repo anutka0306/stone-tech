@@ -163,10 +163,15 @@ class PageController extends AbstractController
     }
 
     private function cityPage($page){
+        $stairs_steps = false;
+        if(in_array($page->getParent()->getId(), array(3,14,15,7,18,19))){
+            $stairs_steps = true;
+        }
         return $this->render('city_page/index.html.twig',
         [
             'page' => $page,
             'cityPage' => true,
+            'stairsSteps' => $stairs_steps,
         ]);
     }
 

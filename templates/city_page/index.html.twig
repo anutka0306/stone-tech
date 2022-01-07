@@ -15,7 +15,11 @@
     {# header banner#}
     {% embed 'elements/header.html.twig' %}
         {% block h1 %}
-            {{ page.name }}
+            {% if stairsSteps is defined and stairsSteps == true %}
+                {{ page.name|replace({"Ступени": "Ступени и лестницы", "Лестницы": "Ступени и лестницы"}) }}
+            {% else %}
+                {{ page.name }}
+            {% endif %}
         {% endblock %}
     {% endembed %}
 {% endblock %}
