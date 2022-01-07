@@ -1,7 +1,7 @@
 {% if citiesBlock is defined and citiesBlock is not empty %}
     <section class="cities__block_wrapper">
         <div class="wrapper">
-            <h2>Заказать ступени из натурального камня в Московской области</h2>
+            <h2>Заказать {{ category.name}} в Московской области</h2>
             <div class="cities__block">
                 <div class="container">
                     <div class="row">
@@ -12,8 +12,10 @@
                         {% endfor %}
                     </div>
                 {% endfor %}
+                        <div class="col-12 cities__block_btn"><a href="/{{ category.path }}districts" class="seo-btn mbtn">Показать все</a></div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>

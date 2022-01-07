@@ -4916,7 +4916,7 @@ input[name=address] {
     line-height: 40px;
     margin-top: 10px;
 }
-.seo-block .seo-left .mbtn {
+.seo-block .seo-left .mbtn, .cities__block .mbtn{
     border: none;
     outline: none;
     cursor: pointer;
@@ -5206,4 +5206,12 @@ input[name=address] {
 }
 .cities__list_item{
     display: block;
+}
+.cities__block_btn{
+    display: flex;
+    justify-content: center;
+}
+.cities__block_btn .mbtn{
+    display: block;
+    padding: 5px 15px;
 }
