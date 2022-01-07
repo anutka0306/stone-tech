@@ -84,11 +84,11 @@
     {# Вот здесь нужно будет сделать проверку после реализации таблицы #}
     {% embed 'elements/advantages_bottom.html.twig' %}
         {% block key1 %}
-            {{ page.name|lower }}
+            {{ page.name[:1]|lower ~ page.name[1:] }}
         {% endblock %}
 
         {% block key2 %}
-            {{ page.name|lower ~ '.'}}
+            {{ page.name[:1]|lower ~ page.name[1:] ~ '.'}}
         {% endblock %}
     {% endembed %}
 
