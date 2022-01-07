@@ -5215,3 +5215,9 @@ input[name=address] {
     display: block;
     padding: 5px 15px;
 }
+
+@media (max-width: 640px) {
+    .cities__block_wrapper{
+        display: none;
+    }
+}
