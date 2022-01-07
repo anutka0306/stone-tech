@@ -6,6 +6,7 @@ use App\Entity\CityPages;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
@@ -23,7 +24,7 @@ class CityPagesCrudController extends AbstractCrudController
         return $crud
             ->setEntityLabelInSingular('Страница по городам')
             ->setEntityLabelInPlural('Страницы по городам')
-            ->setSearchFields(['name', 'city', 'path'])
+            ->setSearchFields(['name', 'city.name', 'path'])
             ->setPaginatorPageSize('100');
     }
 
@@ -41,6 +42,7 @@ class CityPagesCrudController extends AbstractCrudController
             TextEditorField::new('seo_text')->hideOnIndex(),
             TextEditorField::new('seo_text_hidden')->hideOnIndex(),
             ImageField::new('seo_text_img','Картинка SEO текста')->setUploadDir('/public/uploads/images')->setBasePath('/uploads/images/'),
+            BooleanField::new('show_in_block', 'Показывать в блоке'),
         ];
     }
 

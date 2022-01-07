@@ -1,0 +1,20 @@
+{% if citiesBlock is defined and citiesBlock is not empty %}
+    <section class="cities__block_wrapper">
+        <div class="wrapper">
+            <h2>Заказать ступени из натурального камня в Московской области</h2>
+            <div class="cities__block">
+                <div class="container">
+                    <div class="row">
+                {% for row in citiesBlock|batch(10) %}
+                    <div class="col-md-4 col-sm-4 col-12">
+                        {% for city in row|sort((a, b) => a.name <=> b.name) %}
+                            <a class="cities__list_item" href="/{{ city.path }}">{{ city.city.changeName }}</a>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endif %}

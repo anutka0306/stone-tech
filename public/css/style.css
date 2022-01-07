@@ -4899,7 +4899,7 @@ input[name=address] {
     margin-top: 20px;
     color: rgba(54,54,54,.8);
 }
-.seo-block .container {
+.seo-block .container, .cities__block .container {
     padding: 20px;
     background-color: #fff;
     box-shadow: inset 0 0 5px 0 rgb(0 0 0 /50%);

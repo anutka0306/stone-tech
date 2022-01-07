@@ -67,6 +67,11 @@ class CityPages
      */
     private $seo_text_img;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $show_in_block;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -188,6 +193,18 @@ class CityPages
     public function setSeoTextImg(?string $seo_text_img): self
     {
         $this->seo_text_img = $seo_text_img;
+
+        return $this;
+    }
+
+    public function getShowInBlock(): ?bool
+    {
+        return $this->show_in_block;
+    }
+
+    public function setShowInBlock(?bool $show_in_block): self
+    {
+        $this->show_in_block = $show_in_block;
 
         return $this;
     }

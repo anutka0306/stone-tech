@@ -282,6 +282,7 @@ class PageController extends AbstractController
                 'hidePriceArray' => in_array($category->getCategoryId()->getId(), $this->hide_price_array),
             ]);
         }
+        $citiesBlock = $this->cityPagesRepository->findBy(['parent' => $category->getId(), 'show_in_block' => 1], ['name' => 'ASC']);
 
         return $this->render('page/category.html.twig',[
            'category'=>$category,
@@ -293,6 +294,7 @@ class PageController extends AbstractController
             'minPrice' => $min_price,
             'categoryChildren' => $category_children,
             'hidePriceArray' => in_array($category->getCategoryId()->getId(), $this->hide_price_array),
+            'citiesBlock' => $citiesBlock,
         ]);
     }
 
