@@ -258,6 +258,17 @@ class PageController extends AbstractController
         $colors = $this->getColors($products);
 
 
+        if($category->getId() == 7){
+            $citiesBlock = $this->cityPagesRepository->findBy(['parent' => 3, 'show_in_block' => 1], ['name' => 'ASC']);
+        }elseif ($category->getId() == 18){
+            $citiesBlock = $this->cityPagesRepository->findBy(['parent' => 14, 'show_in_block' => 1], ['name' => 'ASC']);
+        }elseif ($category->getId() == 19){
+            $citiesBlock = $this->cityPagesRepository->findBy(['parent' => 15, 'show_in_block' => 1], ['name' => 'ASC']);
+        }else {
+            $citiesBlock = $this->cityPagesRepository->findBy(['parent' => $category->getId(), 'show_in_block' => 1], ['name' => 'ASC']);
+        }
+
+
         if(isset($_POST['ajax']) && isset($_POST['page'])){
 
                 return $this->render('ajax/catalog_more.html.twig', [
@@ -268,6 +279,7 @@ class PageController extends AbstractController
                     'pagination' => $pagination,
                     'activeColor' => null,
                     'hidePriceArray' => in_array($category->getCategoryId(), $this->hide_price_array),
+                    'citiesBlock' => $citiesBlock,
                 ]);
 
         }
@@ -280,9 +292,9 @@ class PageController extends AbstractController
                 'pagination' => $pagination,
                 'activeColor' => null,
                 'hidePriceArray' => in_array($category->getCategoryId()->getId(), $this->hide_price_array),
+                'citiesBlock' => $citiesBlock,
             ]);
         }
-        $citiesBlock = $this->cityPagesRepository->findBy(['parent' => $category->getId(), 'show_in_block' => 1], ['name' => 'ASC']);
 
         return $this->render('page/category.html.twig',[
            'category'=>$category,

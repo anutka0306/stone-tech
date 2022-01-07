@@ -23,7 +23,11 @@
     <section class="cities__list">
         <div class="container">
             <div class="row">
+                {% if page.id == 3 or page.id == 14 or page.id == 15 or page.id == 7 or page.id == 18 or page.id == 19 %}
+                <h2>{{ page.name|replace({'Ступени': 'Ступени и лестницы'}) }} в Московской обасти</h2>
+                {% else %}
         <h2>{{ page.name }} в Московской обасти</h2>
+                {% endif %}
         {% for row in cities|batch(25) %}
             <div class="col-md-4 col-sm-4 col-12">
                 {% for city in row|sort((a, b) => a.name <=> b.name) %}

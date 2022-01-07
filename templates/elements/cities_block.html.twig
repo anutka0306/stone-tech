@@ -12,7 +12,12 @@
                         {% endfor %}
                     </div>
                 {% endfor %}
+                        {% if category.id == 7 or category.id == 18 or category.id == 19 %}
+                        <div class="col-12 cities__block_btn"><a href="/{{ category.path|replace({'lestnicy': 'stupeni'}) }}districts" class="seo-btn mbtn">Показать все</a></div>
+                        {% else %}
+
                         <div class="col-12 cities__block_btn"><a href="/{{ category.path }}districts" class="seo-btn mbtn">Показать все</a></div>
+                        {% endif %}
                     </div>
                 </div>
 
