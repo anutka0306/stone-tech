@@ -45,6 +45,11 @@ class StoneCatalog
      */
     private $updated;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $h1;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -134,6 +139,18 @@ class StoneCatalog
     public function setUpdated(?\DateTimeInterface $updated): self
     {
         $this->updated = $updated;
+
+        return $this;
+    }
+
+    public function getH1(): ?string
+    {
+        return $this->h1;
+    }
+
+    public function setH1(?string $h1): self
+    {
+        $this->h1 = $h1;
 
         return $this;
     }

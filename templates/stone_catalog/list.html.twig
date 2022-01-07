@@ -12,7 +12,11 @@
     {# header banner#}
     {% embed 'elements/header.html.twig' %}
         {% block h1 %}
-            Каталог камня
+            {% if page.h1 is defined and page.h1 is not null %}
+            {{ page.h1 }}
+            {% else %}
+            Каталог камня {{ page.name }}
+            {% endif %}
         {% endblock %}
         {% block goToCataloBotton %}
         {% endblock %}
