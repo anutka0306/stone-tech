@@ -82,7 +82,7 @@ class PageController extends AbstractController
         if(!$page =  $this->page_repository->findOneBy(['path'=>$token]) or in_array($page->getCategoryId()->getId(), $this->districtsCategory) == false){
             throw $this->createNotFoundException(sprintf('Page %s not found', $token.'districts'));
         }
-        $cities = $this->cityPagesRepository->findBy(['parent' => $page->getId()]);
+        $cities = $this->cityPagesRepository->findBy(['parent' => $page->getId()], ['name' => 'ASC']);
         return $this->render('districts/index.html.twig', [
             'page' => $page,
             'cityPage' => true,
